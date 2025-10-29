@@ -104,7 +104,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 6415676715646086225}
   - component: {fileID: 4648491492646600875}
   - component: {fileID: 5856906659590283534}
-  - component: {fileID: 664537482559178181}
+  - component: {fileID: -601227397299576795}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -438,6 +438,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 4648491492646600875}
   - {fileID: 5856906659590283534}
+  - {fileID: -601227397299576795}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &4648491492646600875
 MonoBehaviour:
@@ -471,7 +472,7 @@ MonoBehaviour:
   PlayerSpeed: 5
   JumpForce: 5
   GravityValue: -9.81
---- !u!114 &664537482559178181
+--- !u!114 &-601227397299576795
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -480,8 +481,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6253787926854231561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1541381998, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Script: {fileID: 11500000, guid: 701d88dca4f06a1459a1ab240296ed28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Guid:
-    RawGuidValue: ac32a34bf73f3074eae96f900052fc5b
+  cam: {fileID: 5455142769191668543}
+  interactDist: 8
+  pushSpeed: 2
