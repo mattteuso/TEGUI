@@ -4,17 +4,17 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Interact
+  - Ledge
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Interact
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Ground
+  - PlayerBody
+  - Ledge
   - 
   - 
   - 
