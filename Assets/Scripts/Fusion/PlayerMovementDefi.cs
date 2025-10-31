@@ -8,12 +8,16 @@ public class PlayerMovementDefi : NetworkBehaviour
     private Vector3 _velocity;
     private bool _jumpPressed;
 
+    [Header("Velocidade")]
+    public float PlayerSpeed = 5f;                  // velocidade normal
+    public float InteractSpeedMultiplier = 0.5f;    // 50% da velocidade ao interagir
+
     [Header("Configurações")]
-    public float PlayerSpeed = 5f;
     public float JumpForce = 10f;
     public float GravityValue = -9.81f;
 
-    [HideInInspector] public bool CanRotate = true; // <-- nova flag
+    [HideInInspector] public bool CanRotate = true;       // controla se o player pode rotacionar
+    [HideInInspector] public bool IsInteracting = false;  // indica se o player está empurrando/puxando
 
     private void Awake()
     {
@@ -37,8 +41,27 @@ public class PlayerMovementDefi : NetworkBehaviour
         if (_controller.isGrounded && _velocity.y < 0)
             _velocity.y = -1f;
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        move *= PlayerSpeed * Runner.DeltaTime;
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+
+        Vector3 move = new Vector3(h, 0, v);
+
+        // 🔒 Limita o movimento quando estiver empurrando/puxando
+        float speed = PlayerSpeed;
+
+        if (IsInteracting)
+        {
+            // trava eixo
+            if (Mathf.Abs(h) > Mathf.Abs(v))
+                move = new Vector3(h, 0, 0);
+            else
+                move = new Vector3(0, 0, v);
+
+            // reduz velocidade
+            speed *= InteractSpeedMultiplier;
+        }
+
+        move *= speed * Runner.DeltaTime;
 
         _velocity.y += GravityValue * Runner.DeltaTime;
 
@@ -47,12 +70,13 @@ public class PlayerMovementDefi : NetworkBehaviour
 
         _controller.Move(move + _velocity * Runner.DeltaTime);
 
-        // ✅ Só rotaciona se CanRotate for true
+        // ✅ Só rotaciona se permitido
         if (move.sqrMagnitude > 0.001f && CanRotate)
             transform.forward = move.normalized;
 
         _jumpPressed = false;
     }
 }
+
 
 

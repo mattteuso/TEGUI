@@ -470,11 +470,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5de3a9790d547a14e88c45dd612447c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactDistance: 3
-  interactLayer:
-    serializedVersion: 2
-    m_Bits: 8
   holdPoint: {fileID: 8864012386614339680}
+  interactDist: 3
   moveSpeed: 2.5
 --- !u!114 &1374653310383034809
 MonoBehaviour:
@@ -492,6 +489,7 @@ MonoBehaviour:
   JumpForce: 5
   GravityValue: -9.81
   CanRotate: 1
+  IsInteracting: 0
 --- !u!1 &6376768322816272460
 GameObject:
   m_ObjectHideFlags: 0

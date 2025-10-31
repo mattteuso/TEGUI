@@ -1,27 +1,28 @@
-﻿using UnityEngine;
-using Fusion;
+﻿using Fusion;
+using UnityEngine;
 
 public class ObjectInteraction : NetworkBehaviour
 {
-    [Header("Configurações")]
-    [SerializeField] private float interactDistance = 3f;
-    [SerializeField] private LayerMask interactLayer;
-    [SerializeField] private Transform holdPoint; // ponto onde o objeto ficará preso
-    [SerializeField] private float moveSpeed = 2.5f;
+    [Header("Referências")]
+    [SerializeField] private Transform holdPoint; // ponto onde o objeto é segurado
+    [SerializeField] private float interactDist = 3f; // distância máxima para interagir
+    [SerializeField] private float moveSpeed = 2.5f; // velocidade de empurrar/puxar
 
-    private GameObject heldObject;
+    private PlayerMovementDefi playerMovement;
     private CharacterController cc;
-
+    private GameObject heldObject;
+    private bool isInteracting;
     private bool axisLocked;
-    private Vector3 lockedAxis; // X ou Z
-    private bool isHolding;
-
-    private PlayerMovementDefi playerMovement; // referência para bloquear rotação
+    private Vector3 lockedAxis;
+    private Quaternion lockedRotation;
 
     void Start()
     {
-        cc = GetComponent<CharacterController>();
         playerMovement = GetComponent<PlayerMovementDefi>();
+        cc = GetComponent<CharacterController>();
+
+        if (holdPoint == null)
+            Debug.LogWarning("⚠️ Campo 'holdPoint' não atribuído no Inspector!");
     }
 
     void Update()
@@ -31,102 +32,102 @@ public class ObjectInteraction : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (!isHolding)
-                TryPickup();
+            if (!isInteracting)
+                TryInteract();
             else
-                DropObject();
+                StopInteraction();
         }
 
-        if (isHolding)
+        if (isInteracting && heldObject != null)
             HandleMovement();
     }
 
-    void TryPickup()
+    void TryInteract()
     {
-        Ray ray = new Ray(transform.position + Vector3.up * 0.5f, transform.forward);
+        Debug.DrawRay(transform.position + Vector3.up * 0.5f, transform.forward * interactDist, Color.yellow, 2f);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, interactLayer))
+        if (Physics.Raycast(transform.position + Vector3.up * 0.5f, transform.forward, out RaycastHit hit, interactDist))
         {
-            GameObject target = hit.collider.gameObject;
-
-            // Verifica se tem tag "Interact"
-            if (target.CompareTag("Interact"))
+            if (hit.collider.CompareTag("Interact"))
             {
-                heldObject = target;
-                heldObject.transform.SetParent(holdPoint != null ? holdPoint : transform);
+                heldObject = hit.collider.gameObject;
+                heldObject.transform.SetParent(holdPoint);
                 heldObject.transform.localPosition = Vector3.zero;
+                heldObject.transform.localRotation = Quaternion.identity;
 
-                if (heldObject.TryGetComponent<Rigidbody>(out var rb))
-                    rb.isKinematic = true;
+                isInteracting = true;
 
-                axisLocked = false;
-                isHolding = true;
+                // bloqueia rotação e ativa modo de interação no player
+                lockedRotation = transform.rotation;
+                playerMovement.IsInteracting = true;
+                playerMovement.CanRotate = false;
 
-                // Faz o player olhar pro objeto
-                Vector3 dir = (heldObject.transform.position - transform.position).normalized;
-                dir.y = 0;
-                transform.rotation = Quaternion.LookRotation(dir);
-
-                // ✅ Bloqueia rotação do player enquanto segura
-                if (playerMovement != null)
-                    playerMovement.CanRotate = false;
-
-                Debug.Log($"Pegou o objeto: {heldObject.name}");
+                Debug.Log("✅ Interagindo com objeto: " + heldObject.name);
             }
             else
             {
-                Debug.Log("O objeto atingido não tem a tag Interact.");
+                Debug.Log("⚠️ Objeto atingido não tem a tag 'Interact'");
             }
+        }
+        else
+        {
+            Debug.Log("❌ Nenhum objeto atingido.");
         }
     }
 
-    void DropObject()
+    void StopInteraction()
     {
-        if (heldObject == null)
-            return;
+        if (heldObject != null)
+        {
+            heldObject.transform.SetParent(null);
+            heldObject = null;
+        }
 
-        heldObject.transform.SetParent(null);
-
-        if (heldObject.TryGetComponent<Rigidbody>(out var rb))
-            rb.isKinematic = false;
-
-        Debug.Log($"Soltou o objeto: {heldObject.name}");
-        heldObject = null;
+        isInteracting = false;
         axisLocked = false;
-        isHolding = false;
 
-        // ✅ Libera rotação do player ao soltar
-        if (playerMovement != null)
-            playerMovement.CanRotate = true;
+        // restaura controle do player
+        playerMovement.IsInteracting = false;
+        playerMovement.CanRotate = true;
+
+        Debug.Log("❎ Saiu do modo de interação.");
     }
 
     void HandleMovement()
     {
+        // Mantém a rotação fixa
+        transform.rotation = lockedRotation;
+
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        Vector3 inputDir = new Vector3(h, 0, v);
-
-        // Define o eixo no primeiro movimento
-        if (inputDir.magnitude > 0.1f && !axisLocked)
+        // Detecta eixo inicial
+        if (!axisLocked && (Mathf.Abs(h) > 0.1f || Mathf.Abs(v) > 0.1f))
         {
-            if (Mathf.Abs(inputDir.x) > Mathf.Abs(inputDir.z))
-                lockedAxis = Vector3.right * Mathf.Sign(inputDir.x);
+            if (Mathf.Abs(h) > Mathf.Abs(v))
+                lockedAxis = Vector3.right;
             else
-                lockedAxis = Vector3.forward * Mathf.Sign(inputDir.z);
+                lockedAxis = Vector3.forward;
 
             axisLocked = true;
         }
 
-        // Move apenas no eixo travado
+        // Define direção de movimento
         Vector3 moveDir = Vector3.zero;
         if (axisLocked)
-            moveDir = lockedAxis * (Mathf.Abs(h) + Mathf.Abs(v));
-
-        if (moveDir.magnitude > 0.1f)
         {
-            cc.Move(moveDir * moveSpeed * Time.deltaTime);
-            transform.rotation = Quaternion.LookRotation(lockedAxis);
+            if (lockedAxis == Vector3.right)
+                moveDir = new Vector3(h, 0, 0);
+            else if (lockedAxis == Vector3.forward)
+                moveDir = new Vector3(0, 0, v);
         }
+
+        // Libera eixo quando o jogador solta o input
+        if (Mathf.Abs(h) < 0.1f && Mathf.Abs(v) < 0.1f)
+            axisLocked = false;
+
+        // Aplica movimento
+        if (moveDir.sqrMagnitude > 0.01f)
+            cc.Move(moveDir.normalized * moveSpeed * Time.deltaTime);
     }
 }
