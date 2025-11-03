@@ -62,11 +62,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\PlayerCameraFollowDefi.cs" />
+    <Compile Include="Assets\Scripts\PushableObject.cs" />
     <Compile Include="Assets\Scripts\Fusion\PlayerSpawner.cs" />
     <Compile Include="Assets\Scripts\Fusion\LedgeGrab.cs" />
     <Compile Include="Assets\Scripts\Fusion\PlayerMovementDefi.cs" />
+    <Compile Include="Assets\Scripts\Fusion\PlayerMovementOtavio.cs" />
+    <Compile Include="Assets\Scripts\PushPullController.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\PlayerCameraFollow.cs" />
+    <Compile Include="Assets\Scripts\ObjectInteraction.cs" />
     <Compile Include="Assets\Scripts\Fusion\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Fusion\NetworkInputData.cs" />
   </ItemGroup>
@@ -98,6 +102,7 @@
     <None Include="Assets\Photon\Fusion\Assemblies\Fusion.Realtime.dll" />
     <None Include="Assets\Photon\Fusion\Plugins\NanoSockets\Metro\ARM64\libnanosockets.dll" />
     <None Include="Assets\Photon\Fusion\Plugins\NanoSockets\WebGL\NanoSockets.dll" />
+    <None Include="Assets\Models\Tones\ToonShader.shader" />
     <None Include="Assets\Photon\Fusion\Plugins\NanoSockets\Metro\ARM\libnanosockets.dll" />
   </ItemGroup>
   <ItemGroup>

@@ -7,6 +7,7 @@ public class ObjectInteraction : NetworkBehaviour
     [SerializeField] private Transform holdPoint; // ponto onde o objeto é segurado
     [SerializeField] private float interactDist = 3f; // distância máxima para interagir
     [SerializeField] private float moveSpeed = 2.5f; // velocidade de empurrar/puxar
+    [SerializeField] private Animator animator; // 🎬 referência ao Animator do player
 
     private PlayerMovementDefi playerMovement;
     private CharacterController cc;
@@ -23,6 +24,9 @@ public class ObjectInteraction : NetworkBehaviour
 
         if (holdPoint == null)
             Debug.LogWarning("⚠️ Campo 'holdPoint' não atribuído no Inspector!");
+
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -62,16 +66,20 @@ public class ObjectInteraction : NetworkBehaviour
                 playerMovement.IsInteracting = true;
                 playerMovement.CanRotate = false;
 
-                Debug.Log("✅ Interagindo com objeto: " + heldObject.name);
+                // 🎬 ativa estado base de interação
+                animator.SetBool("isPushing", true);
+                animator.SetBool("PushingIdle", true);
+
+                Debug.Log("Interagindo com objeto: " + heldObject.name);
             }
             else
             {
-                Debug.Log("⚠️ Objeto atingido não tem a tag 'Interact'");
+                Debug.Log("Objeto atingido não tem a tag 'Interact'");
             }
         }
         else
         {
-            Debug.Log("❌ Nenhum objeto atingido.");
+            Debug.Log("Nenhum objeto atingido.");
         }
     }
 
@@ -90,7 +98,15 @@ public class ObjectInteraction : NetworkBehaviour
         playerMovement.IsInteracting = false;
         playerMovement.CanRotate = true;
 
-        Debug.Log("❎ Saiu do modo de interação.");
+        // 🎬 desativa todas as animações de push
+        animator.SetBool("isPushing", false);
+        animator.SetBool("PushForward", false);
+        animator.SetBool("PushBackward", false);
+        animator.SetBool("PushRight", false);
+        animator.SetBool("PushLeft", false);
+        animator.SetBool("PushingIdle", false);
+
+        Debug.Log("Saiu do modo de interação.");
     }
 
     void HandleMovement()
@@ -124,10 +140,47 @@ public class ObjectInteraction : NetworkBehaviour
 
         // Libera eixo quando o jogador solta o input
         if (Mathf.Abs(h) < 0.1f && Mathf.Abs(v) < 0.1f)
+        {
             axisLocked = false;
+            ResetPushAnimations();
+            animator.SetBool("PushingIdle", true); // 👈 volta pro idle empurrando
+        }
 
         // Aplica movimento
         if (moveDir.sqrMagnitude > 0.01f)
+        {
             cc.Move(moveDir.normalized * moveSpeed * Time.deltaTime);
+            UpdatePushAnimations(moveDir);
+        }
+        else
+        {
+            ResetPushAnimations();
+            animator.SetBool("PushingIdle", true); // 👈 parado empurrando
+        }
+    }
+
+    // 🎬 Atualiza animações conforme direção do movimento
+    void UpdatePushAnimations(Vector3 moveDir)
+    {
+        bool forward = Vector3.Dot(moveDir, transform.forward) > 0.5f;
+        bool backward = Vector3.Dot(moveDir, -transform.forward) > 0.5f;
+        bool right = Vector3.Dot(moveDir, transform.right) > 0.5f;
+        bool left = Vector3.Dot(moveDir, -transform.right) > 0.5f;
+
+        animator.SetBool("PushingIdle", false); // 
+
+        animator.SetBool("PushForward", forward);
+        animator.SetBool("PushBackward", backward);
+        animator.SetBool("PushRight", right);
+        animator.SetBool("PushLeft", left);
+    }
+
+    // 🎬 Reseta todas as animações de empurrar
+    void ResetPushAnimations()
+    {
+        animator.SetBool("PushForward", false);
+        animator.SetBool("PushBackward", false);
+        animator.SetBool("PushRight", false);
+        animator.SetBool("PushLeft", false);
     }
 }
