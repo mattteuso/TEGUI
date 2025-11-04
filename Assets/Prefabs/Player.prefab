@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 3528731106026605357}
   - component: {fileID: 6603372701068026809}
   - component: {fileID: 3618325850404493944}
-  - component: {fileID: 8520116015677442826}
+  - component: {fileID: 607432073676080530}
   m_Layer: 0
   m_Name: playerCamera
   m_TagString: MainCamera
@@ -263,7 +263,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!114 &8520116015677442826
+--- !u!114 &607432073676080530
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3227514034069638533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe442cb2c13a85145ba8994b4bba1855, type: 3}
+  m_Script: {fileID: 11500000, guid: b94810665f488f6428bef3fcc19c5b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 3, z: -6}
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 6415676715646086225}
   - component: {fileID: 4648491492646600875}
   - component: {fileID: -6438281963718227129}
-  - component: {fileID: 1374653310383034809}
+  - component: {fileID: -8947902422709577777}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -439,7 +439,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 4648491492646600875}
   - {fileID: -6438281963718227129}
-  - {fileID: 1374653310383034809}
+  - {fileID: -8947902422709577777}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &4648491492646600875
 MonoBehaviour:
@@ -473,7 +473,8 @@ MonoBehaviour:
   holdPoint: {fileID: 8864012386614339680}
   interactDist: 3
   moveSpeed: 2.5
---- !u!114 &1374653310383034809
+  animator: {fileID: 0}
+--- !u!114 &-8947902422709577777
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -482,12 +483,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6253787926854231561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb531ca5297af8949adf0ed78b83c82d, type: 3}
+  m_Script: {fileID: 11500000, guid: 23a61534a16793c4088c112f2ad26d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _velocity: {x: 0, y: 0, z: 0}
   PlayerSpeed: 5
-  JumpForce: 5
+  JumpForce: 10
   GravityValue: -9.81
+  InteractSpeedMultiplier: 0.5
   CanRotate: 1
   IsInteracting: 0
 --- !u!1 &6376768322816272460
