@@ -8,24 +8,25 @@ public class PlayerMovement : NetworkBehaviour
     private Animator _animator;
 
     public Vector3 _velocity;
-    private Vector3 _moveInput;
-
     private bool _jumpPressed;
-    private bool wasGroundedLastFrame;
+    private bool wasGroundedLastFrame = false;
     private bool isJumping;
+    private bool isFalling;
+    private bool isLanding;
+    private float landTimer; // Timer para controlar o bloqueio do land
+
+    private Vector3 _moveInput;
 
     [Header("Configurações")]
     public float PlayerSpeed = 5f;
     public float JumpForce = 10f;
     public float GravityValue = -9.81f;
+    public float landLockTime = 0.4f; // Tempo mínimo que o land bloqueia movimento
 
-    private void Awake()
+    public override void Spawned()
     {
         _controller = GetComponent<CharacterController>();
         _animator = GetComponentInChildren<Animator>();
-
-        if (_animator == null)
-            Debug.LogWarning("Nenhum Animator encontrado no PlayerMovement.");
     }
 
     void Update()
@@ -33,10 +34,8 @@ public class PlayerMovement : NetworkBehaviour
         if (!HasInputAuthority)
             return;
 
-        // Captura o input de movimento
+        // Captura input
         _moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
-        // Captura o input de pulo
         if (Input.GetButtonDown("Jump"))
             _jumpPressed = true;
     }
@@ -48,8 +47,15 @@ public class PlayerMovement : NetworkBehaviour
 
         bool isGrounded = _controller.isGrounded;
 
-        // Detecta "Landing" — acabou de tocar o chão
-        if (isGrounded && !wasGroundedLastFrame)
+        // Detecta início da queda (apenas se não estava no chão e velocidade Y negativa)
+        if (!isGrounded && !isFalling && _velocity.y < -1f)
+        {
+            isFalling = true;
+            if (_animator) _animator.SetBool("isFalling", true);
+        }
+
+        // Detecta aterrissagem (apenas se estava caindo e acabou de tocar o chão)
+        if (isGrounded && !wasGroundedLastFrame && isFalling)
         {
             if (_animator)
             {
@@ -57,67 +63,79 @@ public class PlayerMovement : NetworkBehaviour
                 _animator.SetBool("isFalling", false);
                 _animator.SetBool("isJumping", false);
             }
+
+            isLanding = true;  // Ativa o lock
+            isFalling = false;
             isJumping = false;
+            landTimer = 0f;  // Reinicia o timer
+            Debug.Log("Land triggered - Movement locked");  // Log para debug
         }
 
-        // Corrige velocidade vertical ao tocar o chão
-        if (isGrounded && _velocity.y < 0)
-            _velocity.y = -1f;
-
-        // Movimento horizontal
-        Vector3 move = _moveInput * PlayerSpeed * Runner.DeltaTime;
-
-        // Gravidade
-        _velocity.y += GravityValue * Runner.DeltaTime;
-
-        // Pulo
-        if (_jumpPressed && isGrounded)
+        // Gerencia o fim do land (timer baseado em tempo de rede)
+        if (isLanding)
         {
-            _velocity.y = JumpForce;
-            isJumping = true;
-
-            if (_animator)
+            landTimer += Runner.DeltaTime;
+            if (landTimer >= landLockTime)
             {
-                _animator.SetBool("isJumping", true);
-                _animator.ResetTrigger("Land");
+                isLanding = false;  // Desativa o lock
+                if (_animator)
+                {
+                    _animator.ResetTrigger("Land");
+                    _animator.SetBool("isIdle", true);
+                }
+                Debug.Log("Land ended - Movement unlocked");  // Log para debug
             }
         }
 
-        // Move o player
+        // Pulo (bloqueado durante land)
+        if (_jumpPressed && isGrounded && !isLanding)
+        {
+            _velocity.y = JumpForce;
+            if (_animator)
+            {
+                _animator.SetBool("isJumping", true);
+                _animator.SetBool("isIdle", false);
+                _animator.SetBool("isWalking", false);
+            }
+            isJumping = true;
+        }
+
+        // Gravidade
+        if (isGrounded && _velocity.y < 0)
+            _velocity.y = -1f;
+        else
+            _velocity.y += GravityValue * Runner.DeltaTime;
+
+        // Movimento (bloqueado apenas durante land)
+        Vector3 move = Vector3.zero;
+        if (!isLanding)  // Ajuste aqui: Certifique-se de que o lock só é aplicado quando isLanding é true
+        {
+            Vector3 normalizedInput = _moveInput.normalized;
+            move = normalizedInput * PlayerSpeed * Runner.DeltaTime;
+        }
+
         _controller.Move(move + _velocity * Runner.DeltaTime);
 
-        // Atualiza rotação
-        if (move.sqrMagnitude > 0.001f)
+        // Atualiza rotação e animações (bloqueado durante land)
+        if (move.sqrMagnitude > 0.001f && !isLanding)
+        {
             transform.forward = move.normalized;
+            if (_animator)
+            {
+                _animator.SetBool("isWalking", true);
+                _animator.SetBool("isIdle", false);
+            }
+        }
+        else if (!isLanding && !isJumping && isGrounded)
+        {
+            if (_animator)
+            {
+                _animator.SetBool("isWalking", false);
+                _animator.SetBool("isIdle", true);
+            }
+        }
 
-        // Atualiza animações
-        UpdateAnimatorStates(isGrounded, move);
-
-        wasGroundedLastFrame = isGrounded;
         _jumpPressed = false;
-    }
-
-    private void UpdateAnimatorStates(bool isGrounded, Vector3 move)
-    {
-        if (_animator == null)
-            return;
-
-        float speed = move.magnitude / (PlayerSpeed * Runner.DeltaTime);
-
-        // Define se está parado ou andando
-        bool isMoving = speed > 0.05f && isGrounded;
-        _animator.SetBool("isIdle", !isMoving);
-        _animator.SetBool("isWalking", isMoving);
-        _animator.SetFloat("Speed", speed);
-
-        // Controle de queda
-        if (!isGrounded && _velocity.y < -1f && isJumping)
-        {
-            _animator.SetBool("isFalling", true);
-        }
-        else if (isGrounded)
-        {
-            _animator.SetBool("isFalling", false);
-        }
+        wasGroundedLastFrame = isGrounded;
     }
 }

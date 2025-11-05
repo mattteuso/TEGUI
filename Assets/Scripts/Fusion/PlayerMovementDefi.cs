@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerMovementDefi: NetworkBehaviour
+public class PlayerMovementDefi : NetworkBehaviour
 {
     // =================================================================
     // REFERÊNCIAS
@@ -26,6 +26,9 @@ public class PlayerMovementDefi: NetworkBehaviour
     [Header("Configurações de Interação/Rotação")]
     public float InteractSpeedMultiplier = 0.5f; // 50% da velocidade ao interagir
 
+    [Header("Configurações de Pulo")]
+    public float JumpAnimationTimeout = 2f; // Tempo máximo para a animação de pulo (fallback)
+
     // Estados de Controle
     [HideInInspector] public bool CanRotate = true;
     [HideInInspector] public bool IsInteracting = false;
@@ -33,6 +36,7 @@ public class PlayerMovementDefi: NetworkBehaviour
     // Estados de Pulo (Animação)
     private bool _jumpPressed;
     private bool isJumpingAnimation; // Flag para controlar o estado da animação de pulo
+    private float jumpStartTime; // Timer para fallback
 
     // Input cache
     private Vector3 _moveInput;
@@ -60,14 +64,23 @@ public class PlayerMovementDefi: NetworkBehaviour
             _jumpPressed = true;
         }
 
-        // Verifica se a animação de jump terminou
+        // Verifica se a animação de jump terminou ou timeout
         if (isJumpingAnimation && _animator != null)
         {
             AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+            // Verifica se está na animação "Jump" e terminou
             if (stateInfo.IsName("Jump") && stateInfo.normalizedTime >= 1.0f)
             {
                 isJumpingAnimation = false;
                 _animator.SetBool("isJumping", false);
+                Debug.Log("[PlayerMovement] Animação de pulo terminou normalmente.");
+            }
+            // Fallback: Se passou o tempo limite, força o reset
+            else if (Time.time - jumpStartTime > JumpAnimationTimeout)
+            {
+                isJumpingAnimation = false;
+                _animator.SetBool("isJumping", false);
+                Debug.LogWarning("[PlayerMovement] Animação de pulo resetada por timeout.");
             }
         }
     }
@@ -91,19 +104,21 @@ public class PlayerMovementDefi: NetworkBehaviour
         if (_jumpPressed && _controller.isGrounded && !isJumpingAnimation)
         {
             isJumpingAnimation = true;
+            jumpStartTime = Time.time; // Inicia o timer
             if (_animator != null)
             {
                 _animator.SetBool("isJumping", true);
             }
             // Não aplica força vertical (Pulo Físico IGNORADO)
             _jumpPressed = false;
+            Debug.Log("[PlayerMovement] Pulo iniciado.");
         }
 
         // B. Aplica a Gravidade
-        // Isso é feito SEMPRE para que o player caia, mesmo durante a animação de pulo (se a animação não tiver Root Motion)
+        // Isso é feito SEMPRE para que o player caia, mesmo durante a animação de pulo
         _velocity.y += GravityValue * Runner.DeltaTime;
 
-        // C. Prepara Movimento Horizontal (sem o tempo)
+        // C. Prepara Movimento Horizontal
         Vector3 finalMove = Vector3.zero;
 
         // 3. Trava o movimento horizontal se estiver na animação de pulo
@@ -133,12 +148,11 @@ public class PlayerMovementDefi: NetworkBehaviour
             // A animação (se for Root Motion) ou um evento no Animator que deve mover o player.
         }
 
-
         // 4. Aplica Movimento Final (Horizontal + Vertical)
         _controller.Move(finalMove + _velocity * Runner.DeltaTime);
 
-        // 5. Rotação
-        if (finalMove.sqrMagnitude > 0.001f && CanRotate && !isJumpingAnimation)
+        // 5. Rotação: Só se houver movimento horizontal (não durante pulo)
+        if (finalMove.sqrMagnitude > 0.001f && CanRotate)
             transform.forward = finalMove.normalized;
 
         // 6. Integração com Animator (Idle/Walk) - Somente se não estiver pulando

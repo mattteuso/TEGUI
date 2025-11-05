@@ -7,6 +7,7 @@ public class LedgeGrab : NetworkBehaviour
     [Header("Referências")]
     private CharacterController controller;
     private PlayerMovement playerMovement;
+    private Animator animator;
 
     [Header("Configurações")]
     public float climbUpHeight = 1.5f;
@@ -25,9 +26,11 @@ public class LedgeGrab : NetworkBehaviour
 
     [Header("Ajustes adicionais")]
     [Tooltip("Offset lateral (direita/esquerda) pro ray de continuidade (amarelo)")]
-    public float ledgeContinuityLateralOffset = 0.25f; 
+    public float ledgeContinuityLateralOffset = 0.25f;
     [Tooltip("Tempo mínimo antes de poder agarrar novamente")]
-    public float grabCooldown = 0.5f; 
+    public float grabCooldown = 0.5f;
+    [Tooltip("Delay entre o input do jump e o movimento físico acontecer (para sincronizar com a animação)")]
+    public float jumpDelay = 0.2f; // Delay para o movimento acompanhar a animação
 
     [Header("Controles")]
     public KeyCode releaseKey = KeyCode.LeftShift;
@@ -35,10 +38,11 @@ public class LedgeGrab : NetworkBehaviour
     // Estados
     private bool isGrabbing;
     private bool canGrab;
-    private bool grabBlocked; 
+    private bool grabBlocked;
     private Vector3 ledgePosition;
     private Quaternion grabRotation;
     private RaycastHit lastLedgeHit;
+    private float grabMoveBlend;
 
     // Input cache
     private float _horizontalInput;
@@ -54,6 +58,7 @@ public class LedgeGrab : NetworkBehaviour
     {
         controller = GetComponent<CharacterController>();
         playerMovement = GetComponent<PlayerMovement>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -132,8 +137,17 @@ public class LedgeGrab : NetworkBehaviour
         {
             HandleLedgeMovement();
 
+            // Ajustado: Inicia animação imediatamente e delay para o movimento
             if (_jumpPressed)
-                Runner.StartCoroutine(ClimbUp());
+            {
+                if (animator)
+                {
+                    animator.SetTrigger("GrabJump");
+                    animator.SetBool("IsGrabIdle", false);
+                }
+                Runner.StartCoroutine(JumpDelayRoutine());
+                _jumpPressed = false; // Reseta para evitar múltiplos
+            }
 
             if (_releasePressed)
                 ReleaseLedge();
@@ -141,6 +155,18 @@ public class LedgeGrab : NetworkBehaviour
 
         _jumpPressed = false;
         _releasePressed = false;
+    }
+
+    // Ajustado: Coroutine para delay do movimento (após animação iniciar)
+    private System.Collections.IEnumerator JumpDelayRoutine()
+    {
+        Debug.Log("Animação de jump iniciada - Aguardando delay para movimento...");
+        yield return new WaitForSeconds(jumpDelay); // Aguarda o delay para sincronizar com a animação
+        if (isGrabbing) // Verifica se ainda está agarrando
+        {
+            Runner.StartCoroutine(ClimbUp());
+            Debug.Log("Movimento de jump executado após delay!");
+        }
     }
 
     private void StartGrab()
@@ -163,6 +189,15 @@ public class LedgeGrab : NetworkBehaviour
         transform.position = grabPos;
 
         Debug.Log("Agarrou em: " + grabPos);
+
+        //animacao
+
+        if (animator)
+        {
+            animator.SetTrigger("Grab");
+            animator.SetBool("IsGrabbing", true);
+            animator.SetBool("IsGrabIdle", true);
+        }
     }
 
     private void ReleaseLedge()
@@ -170,6 +205,14 @@ public class LedgeGrab : NetworkBehaviour
         isGrabbing = false;
         controller.enabled = true;
         playerMovement.enabled = true;
+
+        if (animator)
+        {
+            animator.SetBool("IsGrabbing", false);
+            animator.SetBool("IsGrabIdle", false);
+            animator.SetBool("IsGrabWalkingLeft", false);
+            animator.SetBool("IsGrabWalkingRight", false);
+        }
 
         transform.position -= transform.forward * 0.1f;
 
@@ -214,11 +257,31 @@ public class LedgeGrab : NetworkBehaviour
                 return;
 
             transform.position += moveDir;
+
+            if (animator)
+            {
+                animator.SetBool("IsGrabIdle", false);
+                animator.SetBool("IsGrabWalkingLeft", _horizontalInput < 0);
+                animator.SetBool("IsGrabWalkingRight", _horizontalInput > 0);
+            }
+        }
+
+        else
+        {
+            if (animator)
+            {
+                animator.SetBool("IsGrabIdle", true);
+                animator.SetBool("IsGrabWalkingLeft", false);
+                animator.SetBool("IsGrabWalkingRight", false);
+            }
         }
     }
 
     private System.Collections.IEnumerator ClimbUp()
     {
+        // Removido: O trigger "GrabJump" agora é setado no FixedUpdateNetwork para sincronizar com a animação
+        // if (animator) { animator.SetTrigger("GrabJump"); animator.SetBool("IsGrabIdle", false); }
+
         float t = 0f;
         Vector3 startPos = transform.position;
         Vector3 endPos = startPos + Vector3.up * climbUpHeight;
@@ -233,6 +296,11 @@ public class LedgeGrab : NetworkBehaviour
         controller.enabled = true;
         playerMovement.enabled = true;
         isGrabbing = false;
+
+        if (animator)
+        {
+            animator.SetBool("IsGrabbing", false);
+        }
 
         Debug.Log("Subiu a escalada!");
         playerMovement._velocity.y = 0f;
