@@ -358,10 +358,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Animator: {fileID: 2395510451054108844}
   ApplyTiming: 2
-  SyncSettings: 79
-  StateHashes: 000000002b1a167c7940695528a981077af3fe2ec8cf5f94b07157f5bcc72879626c691a6f0390724cb393d45317a62a916567886bd5a32d398fdc041251d3d431e1d072
+  SyncSettings: -1
+  StateHashes: 00000000f47e9679b7d0a57a96b4d300d51ae003c9107cfab41c43315c6815fb416fd2bcb352e8895d3020fc07a7c1e01aa006a765bf348226110781
   TriggerHashes: 00000000
-  TotalWords: 2
+  TotalWords: 4
 --- !u!114 &3616924220051889738
 MonoBehaviour:
   m_ObjectHideFlags: 0

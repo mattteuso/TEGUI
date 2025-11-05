@@ -880,10 +880,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Animator: {fileID: 126857019193060942}
   ApplyTiming: 2
-  SyncSettings: 79
+  SyncSettings: 127
   StateHashes: 000000006054aa04e21be6813270625b602a1d72a098633d4b5bebc0a32bf44648e87cbba0a532b94ec7faccd46ab621c96d71662b1a167c7940695528a981077af3fe2ee67a3208b4204d21ee8e265dbcd459746bd5a32d398fdc04
   TriggerHashes: 00000000e67a32083459a8af795b123b
-  TotalWords: 4
+  TotalWords: 6
 --- !u!95 &126857019193060942
 Animator:
   serializedVersion: 7

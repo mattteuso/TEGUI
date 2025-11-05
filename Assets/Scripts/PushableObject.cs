@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PushableObject : NetworkBehaviour
 {
-    [Header("Configurações")]
+    [Header("ConfiguraÃ§Ãµes")]
     public float moveSpeed = 3f;
     public float smoothness = 5f;
 

@@ -22,9 +22,6 @@ public class ObjectInteraction : NetworkBehaviour
         playerMovement = GetComponent<PlayerMovementDefi>();
         cc = GetComponent<CharacterController>();
 
-        if (holdPoint == null)
-            Debug.LogWarning("⚠️ Campo 'holdPoint' não atribuído no Inspector!");
-
         if (animator == null)
             animator = GetComponentInChildren<Animator>();
     }
@@ -66,7 +63,7 @@ public class ObjectInteraction : NetworkBehaviour
                 playerMovement.IsInteracting = true;
                 playerMovement.CanRotate = false;
 
-                // 🎬 ativa estado base de interação
+                // ativa estado base de interação
                 animator.SetBool("isPushing", true);
                 animator.SetBool("PushingIdle", true);
 
@@ -111,13 +108,13 @@ public class ObjectInteraction : NetworkBehaviour
 
     void HandleMovement()
     {
-        // Mantém a rotação fixa
+        // mantem a rotação fixa
         transform.rotation = lockedRotation;
 
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        // Detecta eixo inicial
+        // detecta eixo inicial
         if (!axisLocked && (Mathf.Abs(h) > 0.1f || Mathf.Abs(v) > 0.1f))
         {
             if (Mathf.Abs(h) > Mathf.Abs(v))
@@ -128,7 +125,7 @@ public class ObjectInteraction : NetworkBehaviour
             axisLocked = true;
         }
 
-        // Define direção de movimento
+        // define direção de movimento
         Vector3 moveDir = Vector3.zero;
         if (axisLocked)
         {
@@ -138,12 +135,12 @@ public class ObjectInteraction : NetworkBehaviour
                 moveDir = new Vector3(0, 0, v);
         }
 
-        // Libera eixo quando o jogador solta o input
+        // libera eixo quando o jogador solta o input
         if (Mathf.Abs(h) < 0.1f && Mathf.Abs(v) < 0.1f)
         {
             axisLocked = false;
             ResetPushAnimations();
-            animator.SetBool("PushingIdle", true); // 👈 volta pro idle empurrando
+            animator.SetBool("PushingIdle", true); // perdi ela vei :(
         }
 
         // Aplica movimento
@@ -155,11 +152,11 @@ public class ObjectInteraction : NetworkBehaviour
         else
         {
             ResetPushAnimations();
-            animator.SetBool("PushingIdle", true); // 👈 parado empurrando
+            animator.SetBool("PushingIdle", true); // perdi essa animacao :(
         }
     }
 
-    // 🎬 Atualiza animações conforme direção do movimento
+    // atualiza animações conforme direção do movimento
     void UpdatePushAnimations(Vector3 moveDir)
     {
         bool forward = Vector3.Dot(moveDir, transform.forward) > 0.5f;
@@ -175,7 +172,7 @@ public class ObjectInteraction : NetworkBehaviour
         animator.SetBool("PushLeft", left);
     }
 
-    // 🎬 Reseta todas as animações de empurrar
+    // reset das animações
     void ResetPushAnimations()
     {
         animator.SetBool("PushForward", false);
