@@ -3695,6 +3695,10 @@ PrefabInstance:
       propertyPath: SortKey
       value: 4037833602
       objectReference: {fileID: 0}
+    - target: {fileID: -6058333698326150084, guid: ed2f82297316be643bc4d7094945dedc, type: 3}
+      propertyPath: SyncParent
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1601171187763966316, guid: ed2f82297316be643bc4d7094945dedc, type: 3}
       propertyPath: m_Name
       value: Cube (8)

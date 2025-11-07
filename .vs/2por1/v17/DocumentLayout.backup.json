@@ -1,26 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\",
+  "WorkspaceRootPath": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|D:\\Projetos\\Projetos Unity\\2por1\\2por1\\assets\\scripts\\fusion\\ledgegrab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\fusion\\ledgegrab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|D:\\Projetos\\Projetos Unity\\2por1\\2por1\\assets\\scripts\\fusion\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\fusion\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|D:\\Projetos\\Projetos Unity\\2por1\\2por1\\assets\\scripts\\playercamerafollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playercamerafollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|d:\\projetos\\projetos unity\\2por1\\2por1\\assets\\scripts\\objectinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|c:\\users\\pedro\\onedrive\\documentos\\unreal projects\\individualota\\2por1\\assets\\scripts\\objectinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\objectinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|D:\\Projetos\\Projetos Unity\\2por1\\2por1\\assets\\scripts\\pushableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|c:\\users\\pedro\\onedrive\\documentos\\unreal projects\\individualota\\2por1\\assets\\scripts\\pushableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\pushableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\assets\\scripts\\fusion\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\fusion\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|c:\\users\\pedro\\onedrive\\documentos\\unreal projects\\individualota\\2por1\\assets\\scripts\\pushpullcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\pushpullcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|c:\\users\\pedro\\onedrive\\documentos\\unreal projects\\individualota\\2por1\\assets\\scripts\\fusion\\ledgegrab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\fusion\\ledgegrab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\assets\\scripts\\playercamerafollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playercamerafollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,17 +34,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "PlayerMovement.cs",
-              "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Fusion\\PlayerMovement.cs",
+              "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Fusion\\PlayerMovement.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Fusion\\PlayerMovement.cs",
-              "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Fusion\\PlayerMovement.cs",
+              "ToolTip": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Fusion\\PlayerMovement.cs",
               "RelativeToolTip": "Assets\\Scripts\\Fusion\\PlayerMovement.cs",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAqwIEAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAABoAAAAAAAAAAAApwD4AAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-18T00:25:06.291Z",
               "IsPinned": true,
@@ -48,52 +52,64 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PushableObject.cs",
-              "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\PushableObject.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\PushableObject.cs",
-              "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\PushableObject.cs",
-              "RelativeToolTip": "Assets\\Scripts\\PushableObject.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "ObjectInteraction.cs",
+              "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\ObjectInteraction.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ObjectInteraction.cs",
+              "ToolTip": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\ObjectInteraction.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ObjectInteraction.cs",
+              "ViewState": "AgIAAK8AAAAAAAAAAAAswN8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T16:35:57.981Z",
+              "WhenOpened": "2025-11-06T22:06:01.844Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "ObjectInteraction.cs",
-              "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\ObjectInteraction.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\ObjectInteraction.cs",
-              "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\ObjectInteraction.cs",
-              "RelativeToolTip": "Assets\\Scripts\\ObjectInteraction.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAA5wJ4AAAAIAAAAAAAAAA==",
+              "Title": "PushPullController.cs",
+              "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\PushPullController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PushPullController.cs",
+              "ToolTip": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\PushPullController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PushPullController.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAAADIAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T16:18:51.795Z",
+              "WhenOpened": "2025-11-06T21:52:40.006Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "PushableObject.cs",
+              "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\PushableObject.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PushableObject.cs",
+              "ToolTip": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\PushableObject.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PushableObject.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-06T21:52:15.089Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "PlayerCameraFollow.cs",
-              "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\PlayerCameraFollow.cs",
+              "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\PlayerCameraFollow.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerCameraFollow.cs",
-              "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\PlayerCameraFollow.cs",
+              "ToolTip": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\PlayerCameraFollow.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerCameraFollow.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T22:31:03.997Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-04T22:31:03.997Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "LedgeGrab.cs",
-              "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Fusion\\LedgeGrab.cs",
+              "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Fusion\\LedgeGrab.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Fusion\\LedgeGrab.cs",
-              "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Fusion\\LedgeGrab.cs",
+              "ToolTip": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Fusion\\LedgeGrab.cs",
               "RelativeToolTip": "Assets\\Scripts\\Fusion\\LedgeGrab.cs",
-              "ViewState": "AgIAAH0BAAAAAAAAAAAqwKcBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAHcAAAAAAAAAAABRwHoAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-27T17:09:45.931Z",
               "EditorCaption": ""
