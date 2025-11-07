@@ -35,8 +35,7 @@
               "ViewState": "AgIAAB4AAAAAAAAAAIAwwD4AAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-18T00:25:06.291Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -58,7 +57,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Fusion\\LedgeGrab.cs",
               "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Fusion\\LedgeGrab.cs",
               "RelativeToolTip": "Assets\\Scripts\\Fusion\\LedgeGrab.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHoAAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAADQAAAAAAAAAAAAqwHoAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-27T17:09:45.931Z",
               "EditorCaption": ""
