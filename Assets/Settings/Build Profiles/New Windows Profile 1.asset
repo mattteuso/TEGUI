@@ -20,10 +20,10 @@ MonoBehaviour:
     rid: 6444725230101856314
   m_OverrideGlobalSceneList: 1
   m_Scenes:
-  - m_enabled: 0
-    m_path: Assets/Scenes/Testandow.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/BlockOut.unity
+    m_path: Assets/Scenes/MainMenu.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/Fase_Prototipo.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings:
@@ -69,8 +69,8 @@ MonoBehaviour:
     - line: '|   m_SplashScreenLogos: []'
     - line: '|   m_VirtualRealitySplashScreen: {instanceID: 0}'
     - line: '|   m_HolographicTrackingLossScreen: {instanceID: 0}'
-    - line: '|   defaultScreenWidth: 1024'
-    - line: '|   defaultScreenHeight: 768'
+    - line: '|   defaultScreenWidth: 1920'
+    - line: '|   defaultScreenHeight: 1080'
     - line: '|   defaultScreenWidthWeb: 960'
     - line: '|   defaultScreenHeightWeb: 600'
     - line: '|   m_StereoRenderingPath: 0'
@@ -851,7 +851,22 @@ MonoBehaviour:
     - line: '|   webGLCloseOnQuit: 0'
     - line: '|   webWasm2023: 0'
     - line: '|   scriptingDefineSymbols:'
-    - line: '|     Standalone: FUSION_LOGLEVEL_INFO;FUSION_WEAVER;FUSION2;FUSION_2;FUSION_2_0;FUSION_2_0_7;FUSION_2_OR_NEWER;FUSION_2_0_OR_NEWER'
+    - line: '|     Android: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     EmbeddedLinux: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     GameCoreScarlett: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     GameCoreXboxOne: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     Kepler: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     LinuxHeadlessSimulation: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     Nintendo Switch: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     Nintendo Switch 2: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     PS4: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     PS5: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     QNX: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     Standalone: FUSION_LOGLEVEL_INFO;FUSION_WEAVER;FUSION2;FUSION_2;FUSION_2_0;FUSION_2_0_7;FUSION_2_OR_NEWER;FUSION_2_0_OR_NEWER;UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     VisionOS: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     WebGL: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     XboxOne: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     tvOS: UNITY_POST_PROCESSING_STACK_V2'
     - line: '|   additionalCompilerArguments: {}'
     - line: '|   platformArchitecture: {}'
     - line: '|   scriptingBackend:'
