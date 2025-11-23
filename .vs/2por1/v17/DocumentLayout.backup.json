@@ -3,11 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|c:\\users\\pedro\\onedrive\\documentos\\unreal projects\\individualota\\2por1\\assets\\scripts\\playerinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playerinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|c:\\users\\pedro\\onedrive\\documentos\\unreal projects\\individualota\\2por1\\assets\\scripts\\changetextureobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\changetextureobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|c:\\users\\pedro\\onedrive\\documentos\\unreal projects\\individualota\\2por1\\assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -46,7 +50,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "PlayerMovement.cs",
               "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Fusion\\PlayerMovement.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Fusion\\PlayerMovement.cs",
@@ -60,19 +64,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "PlayerInteraction.cs",
+              "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\PlayerInteraction.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerInteraction.cs",
+              "ToolTip": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\PlayerInteraction.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PlayerInteraction.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-21T23:24:59.471Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "ChangeTextureObject.cs",
               "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\ChangeTextureObject.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\ChangeTextureObject.cs",
               "ToolTip": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\ChangeTextureObject.cs",
               "RelativeToolTip": "Assets\\Scripts\\ChangeTextureObject.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-21T23:23:55.695Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "GameManager.cs",
               "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\GameManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GameManager.cs",
@@ -80,12 +97,11 @@
               "RelativeToolTip": "Assets\\Scripts\\GameManager.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T02:00:10.687Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T02:00:10.687Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "TitleScreen.cs",
               "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\TitleScreen.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\TitleScreen.cs",
@@ -97,7 +113,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "CreditsManager.cs",
               "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\CreditsManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\CreditsManager.cs",
@@ -109,7 +125,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "MenuManager.cs",
               "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\UI_Menu\\MenuManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UI_Menu\\MenuManager.cs",
@@ -121,7 +137,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "PlayerCameraFollow.cs",
               "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\PlayerCameraFollow.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerCameraFollow.cs",
@@ -133,7 +149,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "LedgeGrab.cs",
               "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Fusion\\LedgeGrab.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Fusion\\LedgeGrab.cs",

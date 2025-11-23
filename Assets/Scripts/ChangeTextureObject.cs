@@ -15,7 +15,6 @@ public class ChangeTextureObject : NetworkBehaviour
 
     public override void Spawned()
     {
-        // Começa na textura A
         if (targetRenderer != null)
         {
             targetRenderer.material.mainTexture = textureA;
@@ -25,22 +24,36 @@ public class ChangeTextureObject : NetworkBehaviour
         }
     }
 
-    [Rpc(RpcSources.All, RpcTargets.All)]
-    public void RpcChangeTexture()
+    // Qualquer peer pode enviar o RPC, mas apenas o Host executa
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcRequestChangeTexture()
     {
-        if (AlreadyUsed)
-        {
-            if (debugMode)
-                Debug.Log("[ChangeTextureObject] Já foi usado! Ignorando...");
-            return;
-        }
+        ApplyTextureChange(); // executa apenas no Host (StateAuthority)
+    }
 
-        // Marca como usado e troca para textura B
-        AlreadyUsed = true;
-        targetRenderer.material.mainTexture = textureB;
+    // Host replica para todos a troca visual
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RpcApplyTexture()
+    {
+        if (targetRenderer != null)
+            targetRenderer.material.mainTexture = textureB;
 
         if (debugMode)
             Debug.Log("[ChangeTextureObject] Textura trocada para B!");
     }
-}
 
+    private void ApplyTextureChange()
+    {
+        if (AlreadyUsed)
+        {
+            if (debugMode)
+                Debug.Log("[ChangeTextureObject] Já foi usado, ignorando.");
+            return;
+        }
+
+        AlreadyUsed = true;
+
+        // Envia para TODOS aplicarem a textura
+        RpcApplyTexture();
+    }
+}

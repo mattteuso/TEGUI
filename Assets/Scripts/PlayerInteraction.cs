@@ -1,4 +1,4 @@
-using Fusion;
+ï»¿using Fusion;
 using UnityEngine;
 
 public class PlayerInteraction : NetworkBehaviour
@@ -10,20 +10,18 @@ public class PlayerInteraction : NetworkBehaviour
     [Header("Debug")]
     [SerializeField] private bool debugMode = true;
 
-    // Armazena se o jogador apertou R no Update
     private bool pressedR;
 
     void Update()
     {
-        // Só captura input do jogador local
         if (Object.HasInputAuthority)
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                pressedR = true; // salva o estado
+                pressedR = true;
 
                 if (debugMode)
-                    Debug.Log("[PlayerInteraction] R apertado no Update()");
+                    Debug.Log("[PlayerInteraction] R apertado");
             }
         }
     }
@@ -33,22 +31,17 @@ public class PlayerInteraction : NetworkBehaviour
         if (!Object.HasInputAuthority)
             return;
 
-        // Se o jogador apertou R no Update, execute a interação no tick de rede
         if (pressedR)
         {
             TryInteract();
-            pressedR = false; // reseta o input
+            pressedR = false;
         }
     }
 
     private void TryInteract()
     {
-        // Raycast agora sai do player
-        Vector3 origin = transform.position + Vector3.up * 1f;
+        Vector3 origin = transform.position + Vector3.up;
         Vector3 direction = transform.forward;
-
-        if (debugMode)
-            Debug.Log("[PlayerInteraction] Tentando interagir via FixedUpdateNetwork...");
 
         if (Physics.Raycast(origin, direction, out RaycastHit hit, interactDistance, interactLayer))
         {
@@ -60,29 +53,16 @@ public class PlayerInteraction : NetworkBehaviour
             if (obj != null)
             {
                 if (debugMode)
-                    Debug.Log("[PlayerInteraction] Objeto interagível encontrado! Chamando RPC...");
+                    Debug.Log("[PlayerInteraction] Enviando pedido ao Host para trocar textura...");
 
-                obj.RpcChangeTexture();
-            }
-            else
-            {
-                if (debugMode)
-                    Debug.Log("[PlayerInteraction] O objeto acertado não contém ChangeTextureObject.");
+                // Agora funciona em Shared Mode
+                obj.RpcRequestChangeTexture();
             }
         }
         else
         {
             if (debugMode)
-                Debug.Log("[PlayerInteraction] Raycast não acertou nada.");
+                Debug.Log("[PlayerInteraction] Nada acertado.");
         }
-    }
-
-    void OnDrawGizmos()
-    {
-        if (!debugMode) return;
-
-        Gizmos.color = Color.yellow;
-        Vector3 origin = transform.position + Vector3.up * 1f;
-        Gizmos.DrawLine(origin, origin + transform.forward * interactDistance);
     }
 }
