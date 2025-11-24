@@ -16,13 +16,8 @@ public class PlayerInteraction : NetworkBehaviour
     {
         if (Object.HasInputAuthority)
         {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
+            if (Input.GetKeyDown(KeyCode.F))
                 pressedR = true;
-
-                if (debugMode)
-                    Debug.Log("[PlayerInteraction] R apertado");
-            }
         }
     }
 
@@ -41,28 +36,25 @@ public class PlayerInteraction : NetworkBehaviour
     private void TryInteract()
     {
         Vector3 origin = transform.position + Vector3.up;
-        Vector3 direction = transform.forward;
+        Vector3 dir = transform.forward;
 
-        if (Physics.Raycast(origin, direction, out RaycastHit hit, interactDistance, interactLayer))
+        if (Physics.Raycast(origin, dir, out RaycastHit hit, interactDistance, interactLayer))
         {
-            if (debugMode)
-                Debug.Log($"[PlayerInteraction] Raycast acertou: {hit.collider.name}");
-
             var obj = hit.collider.GetComponent<ChangeTextureObject>();
+            if (!obj) return;
 
-            if (obj != null)
-            {
-                if (debugMode)
-                    Debug.Log("[PlayerInteraction] Enviando pedido ao Host para trocar textura...");
+            // A forma 100% confiável de identificar o HOST
+            bool isHost = obj.Object.HasStateAuthority;
 
-                // Agora funciona em Shared Mode
-                obj.RpcRequestChangeTexture();
-            }
+            if (debugMode)
+                Debug.Log($"[PlayerInteraction] Enviando pedido, Host = {isHost}");
+
+            obj.RpcRequestTextureChange(isHost);
         }
         else
         {
             if (debugMode)
-                Debug.Log("[PlayerInteraction] Nada acertado.");
+                Debug.Log("[PlayerInteraction] Raycast não acertou nada.");
         }
     }
 }

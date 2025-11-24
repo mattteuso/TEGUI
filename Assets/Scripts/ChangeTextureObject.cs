@@ -1,4 +1,4 @@
-using Fusion;
+ï»¿using Fusion;
 using UnityEngine;
 
 public class ChangeTextureObject : NetworkBehaviour
@@ -10,50 +10,47 @@ public class ChangeTextureObject : NetworkBehaviour
     [SerializeField] private Renderer targetRenderer;
     [SerializeField] private Texture textureA;
     [SerializeField] private Texture textureB;
+    [SerializeField] private Texture textureC;
 
     [Networked] public bool AlreadyUsed { get; set; }
 
     public override void Spawned()
     {
         if (targetRenderer != null)
-        {
             targetRenderer.material.mainTexture = textureA;
-
-            if (debugMode)
-                Debug.Log("[ChangeTextureObject] Começando com textura A.");
-        }
     }
 
-    // Qualquer peer pode enviar o RPC, mas apenas o Host executa
+    // CLIENT/ HOST â†’ HOST (sempre)
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void RpcRequestChangeTexture()
-    {
-        ApplyTextureChange(); // executa apenas no Host (StateAuthority)
-    }
-
-    // Host replica para todos a troca visual
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    private void RpcApplyTexture()
-    {
-        if (targetRenderer != null)
-            targetRenderer.material.mainTexture = textureB;
-
-        if (debugMode)
-            Debug.Log("[ChangeTextureObject] Textura trocada para B!");
-    }
-
-    private void ApplyTextureChange()
+    public void RpcRequestTextureChange(bool isHost)
     {
         if (AlreadyUsed)
-        {
-            if (debugMode)
-                Debug.Log("[ChangeTextureObject] Já foi usado, ignorando.");
             return;
-        }
 
         AlreadyUsed = true;
 
-        // Envia para TODOS aplicarem a textura
-        RpcApplyTexture();
+        int textureIndex = isHost ? 1 : 2; // 1=B, 2=C
+
+        RpcApplyTexture(textureIndex);
+    }
+
+    // HOST â†’ TODOS
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RpcApplyTexture(int index)
+    {
+        if (!targetRenderer) return;
+
+        switch (index)
+        {
+            case 1:
+                targetRenderer.material.mainTexture = textureB;
+                break;
+            case 2:
+                targetRenderer.material.mainTexture = textureC;
+                break;
+        }
+
+        if (debugMode)
+            Debug.Log("[ChangeTextureObject] Aplicada textura " + index);
     }
 }
