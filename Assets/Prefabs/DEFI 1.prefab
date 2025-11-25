@@ -463,6 +463,7 @@ GameObject:
   - component: {fileID: 2395510451054108844}
   - component: {fileID: 1114439873854265283}
   - component: {fileID: 8212029491746616898}
+  - component: {fileID: 7317187224278829625}
   m_Layer: 0
   m_Name: DEFI 1
   m_TagString: Player
@@ -536,6 +537,7 @@ MonoBehaviour:
   - {fileID: 3616924220051889738}
   - {fileID: 1114439873854265283}
   - {fileID: 8212029491746616898}
+  - {fileID: 7317187224278829625}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &2659040485459695890
 MonoBehaviour:
@@ -552,7 +554,7 @@ MonoBehaviour:
   Animator: {fileID: 2395510451054108844}
   ApplyTiming: 2
   SyncSettings: -1
-  StateHashes: 00000000f47e9679b7d0a57a96b4d300d51ae003c9107cfab41c43315c6815fb416fd2bcb352e8895d3020fc07a7c1e01aa006a765bf34822611078126afa49774f5dbbe
+  StateHashes: 000000002b1a167c794069556bd5a32d398fdc0426afa49774f5dbbe28a981077af3fe2e5c6815fb416fd2bcc8cf5f94b07157f56f0390724cb393d45317a62a91656788
   TriggerHashes: 00000000
   TotalWords: 4
 --- !u!114 &3616924220051889738
@@ -630,6 +632,23 @@ MonoBehaviour:
   moveSpeed: 0.3
   carrySpeedMultiplier: 0.6
   animator: {fileID: 2395510451054108844}
+--- !u!114 &7317187224278829625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3353278908064168679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b300970789911d48a51552505cbdfaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactDistance: 3
+  interactLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  debugMode: 1
 --- !u!1 &3390663920796435866
 GameObject:
   m_ObjectHideFlags: 0
