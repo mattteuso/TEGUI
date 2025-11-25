@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c2174503f9003664a8ce1fb60124bd7d
+guid: 653ff05fd8c083348bd77300c57004e0
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,18 +7,48 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material
-    second: {fileID: 2100000, guid: 8fe4832fff1a4cb4dbf4f0198aa4ab83, type: 2}
+      name: M_RoloDeTinta
+    second: {fileID: 2100000, guid: 3b0fb1e68198e774d900956b3309763b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Textura_Tones
-    second: {fileID: 2100000, guid: b59b439bf0acf2142bd658034f677dbe, type: 2}
+      name: bag_def
+    second: {fileID: 2100000, guid: 42ce968c5df7cc14a8da81eb7ed0aee9, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: cabelo
-    second: {fileID: 2100000, guid: c5b270dd98241c14db7c6b06644c9597, type: 2}
+      name: bone_def
+    second: {fileID: 2100000, guid: 0aa529b16f7af5645adfe2c6e625acf9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bone_def.001
+    second: {fileID: 2100000, guid: 3a5216009fc768445a96d4abc8b63b1d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eyes_def
+    second: {fileID: 2100000, guid: e94a6df178ef21d40bab56aa85958fba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hair_def
+    second: {fileID: 2100000, guid: 76a8b0df5b73c8846b6c5df76db880ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shirt_def
+    second: {fileID: 2100000, guid: 354174094aafd6e449d737033c970981, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skin_def
+    second: {fileID: 2100000, guid: 8d8b874fe46e0994c8aa406c4ec47ab2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sneaker_def
+    second: {fileID: 2100000, guid: de0ca4c63daf6134a9a1b9272ae9bbf0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -35,9 +65,9 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    importAnimatedCustomProperties: 1
+    importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -46,11 +76,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature|Catch
-      takeName: Armature|Catch
-      internalID: 6176237042287245821
-      firstFrame: 0
-      lastFrame: 67
+      name: Pixo
+      takeName: Armature|TodasAnimacao
+      internalID: -8069969520335966668
+      firstFrame: 480
+      lastFrame: 612
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -75,11 +105,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Fall
-      takeName: Armature|Fall
-      internalID: -5025487861805838091
+      name: TodasAnimacao
+      takeName: Armature|TodasAnimacao
+      internalID: 2063066468133343078
       firstFrame: 0
-      lastFrame: 9
+      lastFrame: 612
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -104,11 +134,69 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Grab_Idle
-      takeName: Armature|Grab_Idle
-      internalID: -4873426284663846619
-      firstFrame: 0
-      lastFrame: 71
+      name: Walk
+      takeName: Armature|TodasAnimacao
+      internalID: 5429696225003415959
+      firstFrame: 1
+      lastFrame: 26
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle
+      takeName: Armature|TodasAnimacao
+      internalID: -6822505161062588278
+      firstFrame: 310
+      lastFrame: 329
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Jump
+      takeName: Armature|TodasAnimacao
+      internalID: 6404419184555256616
+      firstFrame: 350
+      lastFrame: 459
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -133,18 +221,18 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Grab_Jump
-      takeName: Armature|Grab_Jump
-      internalID: 6145704544505622527
-      firstFrame: 0
-      lastFrame: 24
+      name: Pushing_Forward
+      takeName: Armature|TodasAnimacao
+      internalID: 1653678207861837095
+      firstFrame: 40
+      lastFrame: 88
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -162,18 +250,18 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Grab_Walk_Left
-      takeName: Armature|Grab_Walk_Left
-      internalID: 3113511722600200731
-      firstFrame: 0
-      lastFrame: 36
+      name: Pushing_Backwards
+      takeName: Armature|TodasAnimacao
+      internalID: 4296110422158144390
+      firstFrame: 100
+      lastFrame: 150
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -191,18 +279,18 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Grab_Walk_Right
-      takeName: Armature|Grab_Walk_Right
-      internalID: -3751345250279537676
-      firstFrame: 0
-      lastFrame: 36
+      name: Pushing_Left
+      takeName: Armature|TodasAnimacao
+      internalID: 6666002856280125578
+      firstFrame: 160
+      lastFrame: 207
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -220,134 +308,18 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Idle
-      takeName: Armature|Idle
-      internalID: -8945691123924629249
-      firstFrame: 0
-      lastFrame: 73
+      name: Pushing_Right
+      takeName: Armature|TodasAnimacao
+      internalID: 8863712276778224551
+      firstFrame: 240
+      lastFrame: 288
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Armature|Jump
-      takeName: Armature|Jump
-      internalID: 1079665108409675491
-      firstFrame: 0
-      lastFrame: 15
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Armature|Land
-      takeName: Armature|Land
-      internalID: -7690588252518188395
-      firstFrame: 0
-      lastFrame: 44
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Armature|Rest
-      takeName: Armature|Rest
-      internalID: 3883155493392930285
-      firstFrame: 0
-      lastFrame: 0
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Armature|Walk
-      takeName: Armature|Walk
-      internalID: 8349542763059015795
-      firstFrame: 0
-      lastFrame: 28
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -425,7 +397,7 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
