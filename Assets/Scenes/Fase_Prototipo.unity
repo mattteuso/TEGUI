@@ -1629,7 +1629,6 @@ MonoBehaviour:
   textureB1: {fileID: 2800000, guid: 9b576acb75b56f5469d7ef5005150295, type: 3}
   textureC: {fileID: 2800000, guid: fe78fddb94ea6444f8b5a9647fdfdf15, type: 3}
   textureC1: {fileID: 2800000, guid: df9a2bbf708292344b31465c6e309868, type: 3}
-  _Contador: 0
 --- !u!1 &473457878
 GameObject:
   m_ObjectHideFlags: 0
@@ -3360,6 +3359,71 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &961679718
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 961679721}
+  - component: {fileID: 961679720}
+  - component: {fileID: 961679719}
+  m_Layer: 0
+  m_Name: Contador Global
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &961679719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961679718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 1293101494
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 961679720}
+  ForceRemoteRenderTimeframe: 0
+--- !u!114 &961679720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961679718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dddc7dfb5de546a44b4c00d74d7d2b55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _TextureChangeCount: 0
+--- !u!4 &961679721
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961679718}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.2705815, y: 6.2744303, z: -6.4868593}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1149669639
 GameObject:
   m_ObjectHideFlags: 0
@@ -3796,7 +3860,6 @@ MonoBehaviour:
   textureB1: {fileID: 2800000, guid: 9b576acb75b56f5469d7ef5005150295, type: 3}
   textureC: {fileID: 2800000, guid: fe78fddb94ea6444f8b5a9647fdfdf15, type: 3}
   textureC1: {fileID: 2800000, guid: df9a2bbf708292344b31465c6e309868, type: 3}
-  _Contador: 0
 --- !u!64 &1558347193
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5491,3 +5554,4 @@ SceneRoots:
   - {fileID: 41751180}
   - {fileID: 458522870}
   - {fileID: 1558347196}
+  - {fileID: 961679721}
