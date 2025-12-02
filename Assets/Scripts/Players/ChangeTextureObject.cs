@@ -8,16 +8,12 @@ public class ChangeTextureObject : NetworkBehaviour
 
     [Header("Textures")]
     [SerializeField] private Renderer targetRenderer;
-    [SerializeField] private Texture textureA;
 
+    [SerializeField] private Texture textureA;
     [SerializeField] private Texture textureB;
     [SerializeField] private Texture textureB1;
-
     [SerializeField] private Texture textureC;
     [SerializeField] private Texture textureC1;
-
-    [Networked] // Contador networked para que todos vejam
-    public int Contador { get; private set; } = 0;
 
     public override void Spawned()
     {
@@ -25,24 +21,35 @@ public class ChangeTextureObject : NetworkBehaviour
             targetRenderer.material.mainTexture = textureA;
     }
 
-    // RPC: recebe o índice da textura
-    [Rpc(RpcSources.All, RpcTargets.All)]
+    // RPC é executado apenas no StateAuthority (host)
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RpcApplyTextureIndex(int index)
     {
         if (!targetRenderer) return;
 
         switch (index)
         {
-            case 1: targetRenderer.material.mainTexture = textureB; break;
-            case 2: targetRenderer.material.mainTexture = textureB1; break;
-            case 3: targetRenderer.material.mainTexture = textureC; break;
-            case 4: targetRenderer.material.mainTexture = textureC1; break;
+            case 1:
+                targetRenderer.material.mainTexture = textureB;
+                break;
+
+            case 2:
+                targetRenderer.material.mainTexture = textureB1;
+                break;
+
+            case 3:
+                targetRenderer.material.mainTexture = textureC;
+                break;
+
+            case 4:
+                targetRenderer.material.mainTexture = textureC1;
+                break;
         }
 
-        // Incrementa o contador sempre que a textura muda
-        Contador++;
+        // CHAMA O CONTADOR GLOBAL (método static seguro)
+        TextureCounterController.Incrementar();
 
         if (debugMode)
-            Debug.Log("[ChangeTextureObject] Textura aplicada: " + index + " | Contador: " + Contador);
+            Debug.Log("[ChangeTextureObject] Textura aplicada -> " + index);
     }
 }
