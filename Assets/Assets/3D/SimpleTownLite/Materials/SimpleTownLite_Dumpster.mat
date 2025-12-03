@@ -43,9 +43,9 @@ Material:
     - _HighIntensity: 1.5
     - _LightScalar: 1
     - _LowIntensity: 1
-    - _OutlineSize: 100
+    - _OutlineSize: 74.4
     - _RampLevels: 2
-    - _RimAlpha: 0
+    - _RimAlpha: 0.695
     - _RimDropOff: 0
     - _RimPower: 0
     m_Colors:
@@ -53,7 +53,7 @@ Material:
     - _FresnelColor: {r: 1, g: 1, b: 1, a: 1}
     - _HighColor: {r: 1, g: 1, b: 1, a: 1}
     - _LowColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 1, g: 0.97040063, b: 0.023584902, a: 1}
+    - _OutlineColor: {r: 0.22345018, g: 1, b: 0, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
