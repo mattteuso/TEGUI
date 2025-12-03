@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|c:\\users\\pedro\\onedrive\\documentos\\unreal projects\\individualota\\2por1\\assets\\scripts\\fusion\\playerspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\fusion\\playerspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|c:\\users\\pedro\\onedrive\\documentos\\unreal projects\\individualota\\2por1\\assets\\scripts\\players\\texturecountercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\texturecountercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -11,7 +15,7 @@
       "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\changetextureobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|c:\\users\\pedro\\onedrive\\documentos\\unreal projects\\individualota\\2por1\\assets\\scripts\\players\\playerinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\assets\\scripts\\players\\playerinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\playerinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -30,7 +34,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "GameManager.cs",
               "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\GameManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GameManager.cs",
@@ -44,19 +48,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "PlayerSpawner.cs",
+              "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Fusion\\PlayerSpawner.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Fusion\\PlayerSpawner.cs",
+              "ToolTip": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Fusion\\PlayerSpawner.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Fusion\\PlayerSpawner.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwCcAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T21:45:10.849Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "TextureCounterController.cs",
               "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Players\\TextureCounterController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\TextureCounterController.cs",
               "ToolTip": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Players\\TextureCounterController.cs",
               "RelativeToolTip": "Assets\\Scripts\\Players\\TextureCounterController.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAA2wC8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAUwC8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-29T20:26:07.95Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ChangeTextureObject.cs",
               "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Players\\ChangeTextureObject.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\ChangeTextureObject.cs",
@@ -64,12 +81,11 @@
               "RelativeToolTip": "Assets\\Scripts\\Players\\ChangeTextureObject.cs",
               "ViewState": "AgIAABkAAAAAAAAAAAAgwDYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-25T20:54:12.232Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-25T20:54:12.232Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "PlayerInteraction.cs",
               "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Players\\PlayerInteraction.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\PlayerInteraction.cs",
@@ -77,8 +93,7 @@
               "RelativeToolTip": "Assets\\Scripts\\Players\\PlayerInteraction.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAowCIAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-25T20:54:01.676Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-25T20:54:01.676Z"
             }
           ]
         }
