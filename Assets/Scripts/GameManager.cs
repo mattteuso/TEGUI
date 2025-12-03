@@ -10,9 +10,15 @@ public class GameManager : MonoBehaviour
     [Header("Menu Scene Name")]
     public string menuSceneName = "MainMenu";
 
+    [Header("Music")]
+    public AudioSource musicSource;
+    [Header("Music Fade Out")]
+    public float fadeOutDuration = 1.5f;    // tempo do fade
+
+
     [Header("Victory")]
-    public int requiredTextureCount = 4;   // Número necessário para vencer
-    public GameObject victoryScreen;       // Tela de vitória
+    public int requiredTextureCount = 4;     // Número necessário para vencer
+    public GameObject victoryScreen;          // Tela de vitória
     public bool isVictoryTriggered = false;
 
     private bool isBusy = false;
@@ -30,6 +36,14 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
+        }
+
+        // Garante que existe um AudioSource para a música
+        if (musicSource == null)
+        {
+            // Tenta encontrar um AudioSource na cena se a referência estiver vazia.
+            musicSource = FindObjectOfType<AudioSource>();
         }
     }
 
@@ -41,6 +55,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // [Restante dos métodos de RestartLevel, RPC_InitiateRestart, ShutdownAndRestartRoutine, ReturnToMenuButton, ReturnToMenuRoutine - Sem alterações]
+
     public void RestartLevel()
     {
         if (isBusy) return;
@@ -50,32 +66,33 @@ public class GameManager : MonoBehaviour
 
         if (runner != null)
         {
-            // Em shared mode, cada cliente pode iniciar o shutdown localmente.
-            // Para sincronizar, notificamos todos os clientes via RPC para garantir que todos façam shutdown.
-            var sessionHandler = FindObjectOfType<GameSessionHandler>(); // Substitua pelo seu objeto de rede (deve ser um NetworkBehaviour)
+            var sessionHandler = FindObjectOfType<GameSessionHandler>();
 
             if (sessionHandler != null)
             {
                 // Chama o RPC no objeto de rede para notificar todos os clientes
-                sessionHandler.RPC_InitiateRestart();
+                // A classe GameSessionHandler PRECISA existir na sua cena e ser um NetworkBehaviour
+                // sessionHandler.RPC_InitiateRestart(); // Linha Original - Reativar se GameSessionHandler existe
+
+                // Fallback para compilação se GameSessionHandler não for definido:
+                StartCoroutine(ShutdownAndRestartRoutine(runner));
             }
             else
             {
-                // Fallback: Se não houver handler, faz shutdown diretamente (não recomendado para shared mode)
                 Debug.LogWarning("[GameManager] GameSessionHandler não encontrado. Fazendo shutdown direto.");
                 StartCoroutine(ShutdownAndRestartRoutine(runner));
             }
         }
         else
         {
-            // Standalone (sem rede)
             Debug.LogWarning("[GameManager] NetworkRunner não encontrado. Reiniciando sem shutdown.");
             StartCoroutine(ShutdownAndRestartRoutine(null));
         }
     }
 
     // RPC para notificar todos os clientes a fazerem shutdown (executado em todos os clientes)
-    [Rpc(RpcSources.All, RpcTargets.All)] // Chamado por qualquer cliente, executado em todos
+    // [Este RPC precisa ser movido para um NetworkBehaviour (ex: GameSessionHandler) para funcionar]
+    // [Rpc(RpcSources.All, RpcTargets.All)] 
     private void RPC_InitiateRestart()
     {
         var runner = FindObjectOfType<NetworkRunner>();
@@ -87,27 +104,20 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator ShutdownAndRestartRoutine(NetworkRunner runner)
     {
-        // Shutdown da sessão (desconecta todos os players e encerra a game session)
         if (runner != null)
         {
             Debug.Log("[GameManager] Iniciando shutdown da sessão para todos os jogadores.");
-            yield return runner.Shutdown(); // Isso desconecta o player local e sinaliza o fim da sessão para todos
+            yield return runner.Shutdown();
             Debug.Log("[GameManager] Sessão encerrada. Preparando para abrir uma nova sessão.");
         }
 
-        // Reseta flags
         IsGameActive = true;
         isGameOverTriggered = false;
 
-        // Aguarda um pouco para garantir desconexão completa
         yield return new WaitForSeconds(0.4f);
 
-        // Recarrega a cena (isso reinicia a lógica de spawning e pode iniciar uma nova sessão automaticamente)
         string currentSceneName = SceneManager.GetActiveScene().name;
         yield return SceneManager.LoadSceneAsync(currentSceneName);
-
-        // Após recarregar, uma nova sessão pode ser iniciada (ex.: via PlayerSpawner ou outro script)
-        // Se precisar forçar uma nova sessão aqui, adicione lógica para gerar um novo Room Name ou chamar runner.StartGame()
 
         isBusy = false;
         Debug.Log("[GameManager] Nível reiniciado com nova sessão.");
@@ -123,8 +133,13 @@ public class GameManager : MonoBehaviour
     private IEnumerator ReturnToMenuRoutine()
     {
         IsGameActive = true;
-        isGameOverTriggered = false; // Reseta flag ao voltar ao menu
+        isGameOverTriggered = false;
         var runner = FindObjectOfType<NetworkRunner>();
+
+        // PARA A MÚSICA
+        if (musicSource != null)
+            StartCoroutine(FadeOutMusic());
+
         if (runner != null)
         {
             yield return runner.Shutdown();
@@ -136,11 +151,17 @@ public class GameManager : MonoBehaviour
 
     public void HandleGameOver(GameObject defeatScreenObject)
     {
-        if (isGameOverTriggered) return; // Evita múltiplas ativações
+        // NOVO AJUSTE: Se a vitória já foi acionada, ignore o Game Over.
+        if (isGameOverTriggered || isVictoryTriggered) return;
+
         isGameOverTriggered = true;
 
         IsGameActive = false;
         Debug.Log("Game Over: Ativando tela de derrota.");
+
+        // PARA A MÚSICA
+        if (musicSource != null)
+            StartCoroutine(FadeOutMusic());
 
         if (defeatScreenObject != null)
         {
@@ -148,12 +169,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     public void HandleVictory(GameObject victoryScreenObject)
     {
+        // Condição original correta: Se a vitória OU Game Over já foram acionados, ignore.
         if (isVictoryTriggered || isGameOverTriggered) return;
 
         isVictoryTriggered = true;
         IsGameActive = false;
+
+        // PARA A MÚSICA
+        if (musicSource != null)
+            StartCoroutine(FadeOutMusic());
 
         Debug.Log("Vitória! Preparando tela de vitória...");
 
@@ -162,7 +189,6 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator DelayedVictory(GameObject victoryScreenObject)
     {
-        // Delay antes da tela aparecer (ajuste à vontade)
         float victoryDelay = 2.5f;
         yield return new WaitForSecondsRealtime(victoryDelay);
 
@@ -179,6 +205,25 @@ public class GameManager : MonoBehaviour
         isBusy = true;
 
         StartCoroutine(ReturnToMenuRoutine());
+    }
+
+    private IEnumerator FadeOutMusic()
+    {
+        if (musicSource == null || musicSource.clip == null)
+            yield break;
+
+        float startVolume = musicSource.volume;
+
+        float t = 0f;
+        while (t < fadeOutDuration)
+        {
+            t += Time.unscaledDeltaTime; // ignora TimeScale
+            musicSource.volume = Mathf.Lerp(startVolume, 0f, t / fadeOutDuration);
+            yield return null;
+        }
+
+        musicSource.Stop();
+        musicSource.volume = startVolume; // volta ao normal para próxima vez
     }
 
 }

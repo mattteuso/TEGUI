@@ -46,8 +46,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuSceneName: MainMenu
+  requiredTextureCount: 9
+  victoryScreen: {fileID: 0}
+  isVictoryTriggered: 0
   IsGameActive: 1
   defeatScreen: {fileID: 0}
+  isGameOverTriggered: 0
 --- !u!114 &6864073752757848262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,7 +66,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 1423658367
   ObjectInterest: 1
-  Flags: 131073
+  Flags: 1
   NestedObjects: []
   NetworkedBehaviours: []
   ForceRemoteRenderTimeframe: 0

@@ -1842,6 +1842,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5883682259726338534, guid: cfb968e10a049214582fa9c8ad5cd414, type: 3}
+      propertyPath: gameSceneName
+      value: Fase_Principal
+      objectReference: {fileID: 0}
     - target: {fileID: 5977505364643628574, guid: cfb968e10a049214582fa9c8ad5cd414, type: 3}
       propertyPath: panel
       value: 
@@ -1862,6 +1866,10 @@ PrefabInstance:
       propertyPath: backgroundAnimator
       value: 
       objectReference: {fileID: 1055069434}
+    - target: {fileID: 6226211837464569661, guid: cfb968e10a049214582fa9c8ad5cd414, type: 3}
+      propertyPath: gameSceneName
+      value: Fase_Principal
+      objectReference: {fileID: 0}
     - target: {fileID: 7191882559072090220, guid: cfb968e10a049214582fa9c8ad5cd414, type: 3}
       propertyPath: panel
       value: 

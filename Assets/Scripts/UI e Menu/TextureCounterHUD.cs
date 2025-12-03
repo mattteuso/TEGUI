@@ -11,13 +11,13 @@ public class TextureCounterHUD : MonoBehaviour
         // Se ainda não existe instância, não faz nada (evita erro)
         if (TextureCounterController.Instance == null)
         {
-            counterText.text = "0/3";
+            counterText.text = "0/8";
             return;
         }
 
         // Lê o contador de forma segura
         int count = TextureCounterController.Instance.TextureChangeCount;
 
-        counterText.text = count + "/3";
+        counterText.text = count + "/8";
     }
 }
