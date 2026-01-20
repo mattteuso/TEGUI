@@ -1,53 +1,36 @@
-﻿using Fusion;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerCameraFollow : MonoBehaviour
 {
-    [SerializeField] private Vector3 offset = new Vector3(0, 3f, -6f);
-    [SerializeField] private Vector3 fixedRotation = new Vector3(20f, 0f, 0f);
+    [Header("Target")]
+    [SerializeField] private Transform target;
 
-    private Transform target;
-    private bool targetLocked = false;
+    [Header("Offset")]
+    [SerializeField] private Vector3 offset = new Vector3(0, 5, -8);
+
+    [Header("Follow Settings")]
+    [SerializeField] private float smoothSpeed = 10f;
+
+    private Vector3 velocity = Vector3.zero;
 
     private void LateUpdate()
     {
-        if (!targetLocked)
-        {
-            TryFindLocalPlayer();
-            return;
-        }
-
         if (target == null)
             return;
 
-        // Remove o parenting se estiver definido (para evitar herança de movimento)
-        if (transform.parent != null)
-        {
-            transform.SetParent(null);
-        }
+        Vector3 desiredPosition = target.position + offset;
 
-        // Define a posição absoluta no mundo (relativa ao player, mas fixa)
-        transform.position = target.position + offset;
-
-        // Mantém a rotação fixa no espaço mundial
-        transform.rotation = Quaternion.Euler(fixedRotation);
+        transform.position = Vector3.SmoothDamp(
+            transform.position,
+            desiredPosition,
+            ref velocity,
+            1f / smoothSpeed
+        );
     }
 
-    private void TryFindLocalPlayer()
+    // Opcional: definir target via código
+    public void SetTarget(Transform newTarget)
     {
-        var players = FindObjectsOfType<NetworkObject>();
-
-        foreach (var p in players)
-        {
-            if (p.HasInputAuthority &&
-               (p.GetComponent<PlayerMovement>() != null ||
-                p.GetComponent<PlayerMovementDefi>() != null))
-            {
-                target = p.transform;
-                targetLocked = true;
-                Debug.Log($"[CameraFollow] Vinculada ao player local: {p.name}");
-                break;
-            }
-        }
+        target = newTarget;
     }
 }

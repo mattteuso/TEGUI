@@ -13,9 +13,6 @@ GameObject:
   - component: {fileID: 4030258071516631740}
   - component: {fileID: 2122412909266159265}
   - component: {fileID: 2954631628866952439}
-  - component: {fileID: -7564690329601307885}
-  - component: {fileID: -6058333698326150084}
-  - component: {fileID: 6633242626941636308}
   - component: {fileID: -3082705723793538069}
   m_Layer: 0
   m_Name: Cube
@@ -70,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: dbf898c9f9c4a2d46aa6336e23caeb61, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -140,57 +137,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &-7564690329601307885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1601171187763966316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SortKey: 4073919885
-  ObjectInterest: 1
-  Flags: 262145
-  NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: -6058333698326150084}
-  - {fileID: 6633242626941636308}
-  - {fileID: -3082705723793538069}
-  ForceRemoteRenderTimeframe: 0
---- !u!114 &-6058333698326150084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1601171187763966316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _stateAuthorityChangeErrorCorrectionDelta: 0
-  SyncScale: 1
-  SyncParent: 1
-  _autoAOIOverride: 1
-  DisableSharedModeInterpolation: 1
---- !u!114 &6633242626941636308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1601171187763966316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bcca4460b8c03141a342529a9e39429, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  localCarryOffset: {x: 0, y: 1.5, z: 2.5}
 --- !u!114 &-3082705723793538069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +150,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
-  boxRadius: 0.45
+  collisionCheckRadius: 0.45
   collisionMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
+  localCarryOffset: {x: 0, y: 1.5, z: 2.5}

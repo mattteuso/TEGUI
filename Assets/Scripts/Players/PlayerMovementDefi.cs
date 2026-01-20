@@ -1,20 +1,17 @@
-﻿using Fusion;
-using UnityEngine;
-using System.Collections;
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerMovementDefi : NetworkBehaviour, IPlayerMovement
+public class PlayerMovementDefi : MonoBehaviour, IPlayerMovement
 {
     // =================================================================
     // REFERÊNCIAS
     // =================================================================
     private CharacterController _controller;
-    private Animator _animator; // Referência ao Animator
+    private Animator _animator;
 
-    // Propriedade pública para expor se o player está grounded (implementa IPlayerMovement)
-    public bool IsGrounded => _controller != null && _controller.isGrounded;
+    public bool IsGrounded => _controller.isGrounded;
 
-    // Variável de velocidade vertical (compartilhada)
     [HideInInspector] public Vector3 _velocity;
     [HideInInspector] public bool IsMovementBlocked = false;
 
@@ -22,215 +19,195 @@ public class PlayerMovementDefi : NetworkBehaviour, IPlayerMovement
     // CONFIGURAÇÕES
     // =================================================================
 
-    [Header("Configurações Base")]
+    [Header("Movimento")]
     public float PlayerSpeed = 5f;
-    public float JumpForce = 10f; // Mantida, mas não será usada para a força
     public float GravityValue = -9.81f;
 
-    [Header("Configurações de Interação/Rotação")]
-    public float InteractSpeedMultiplier = 0.5f; // 50% da velocidade ao interagir
+    [Header("Rotação")]
+    public float RotationSpeed = 10f;
 
-    [Header("Configurações de Pulo")]
-    public float JumpAnimationTimeout = 2f; // Tempo máximo para a animação de pulo (fallback)
+    [Header("Interação")]
+    public float InteractSpeedMultiplier = 0.5f;
 
-    // Estados de Controle
-    [HideInInspector] public bool CanRotate = true;
-    [HideInInspector] public bool IsInteracting = false;
+    [Header("Pulo")]
+    public float JumpAnimationTimeout = 2f;
 
-    // Estados de Pulo (Animação)
+    public bool CanRotate = true;
+    public bool IsInteracting = false;
+
+    // =================================================================
+    // ESTADOS
+    // =================================================================
+
     private bool _jumpPressed;
-    private bool isJumpingAnimation; // Flag para controlar o estado da animação de pulo
-    private float jumpStartTime; // Timer para fallback
+    private bool isJumpingAnimation;
+    private float jumpStartTime;
 
-    // Input cache
+    private Vector2 _rawInput;
     private Vector3 _moveInput;
+    private Vector3 _desiredDirection;
 
     // =================================================================
-    // LIFECYCLE E INPUT
+    // LIFECYCLE
     // =================================================================
 
-    public override void Spawned()
+    private void Awake()
     {
         _controller = GetComponent<CharacterController>();
         _animator = GetComponentInChildren<Animator>();
-
-        // Encontra e configura a HUD existente na cena
-        if (Object.HasInputAuthority)
-        {
-            var hudObject = GameObject.Find("PlayerHUD"); // Encontra o objeto HUD na cena
-            if (hudObject != null)
-            {
-                var hudScript = hudObject.GetComponent<PlayerHUD>();
-                if (hudScript != null)
-                {
-                    hudScript.SetPlayer(this); // Configura o ícone baseado na tag do jogador
-                    Debug.Log("[PlayerMovementDefi] HUD da cena configurada para jogador local.");
-                }
-                else
-                {
-                    Debug.LogWarning("[PlayerMovementDefi] PlayerHUD script não encontrado no objeto da cena.");
-                }
-            }
-            else
-            {
-                Debug.LogWarning("[PlayerMovementDefi] PlayerHUD objeto não encontrado na cena.");
-            }
-        }
     }
 
-    void Update()
+    private void Update()
     {
-        if (!HasInputAuthority)
-            return;
+        UpdateJumpAnimationState();
+        HandleMovement(); // ⚠️ Agora em Update
+    }
 
-        _moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+    // =================================================================
+    // INPUT SYSTEM
+    // =================================================================
 
-        // Captura input de pulo: Se pressionou e não está em animação de pulo
-        if (Input.GetButtonDown("Jump") && !isJumpingAnimation)
+    public void OnMove(InputValue value)
+    {
+        _rawInput = value.Get<Vector2>();
+        _moveInput = new Vector3(_rawInput.x, 0, _rawInput.y);
+    }
+
+    public void OnJump(InputValue value)
+    {
+        if (value.isPressed && IsGrounded && !isJumpingAnimation)
         {
             _jumpPressed = true;
         }
-
-        // Verifica se a animação de jump terminou ou timeout
-        if (isJumpingAnimation && _animator != null)
-        {
-            AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
-            // Verifica se está na animação "Jump" e terminou
-            if (stateInfo.IsName("Jump") && stateInfo.normalizedTime >= 1.0f)
-            {
-                isJumpingAnimation = false;
-                _animator.SetBool("isJumping", false);
-                Debug.Log("[PlayerMovement] Animação de pulo terminou normalmente.");
-            }
-            // Fallback: Se passou o tempo limite, força o reset
-            else if (Time.time - jumpStartTime > JumpAnimationTimeout)
-            {
-                isJumpingAnimation = false;
-                _animator.SetBool("isJumping", false);
-                Debug.LogWarning("[PlayerMovement] Animação de pulo resetada por timeout.");
-            }
-        }
     }
 
     // =================================================================
-    // LÓGICA DE MOVIMENTO DE REDE
+    // MOVIMENTO
     // =================================================================
 
-    public override void FixedUpdateNetwork()
+    private void HandleMovement()
     {
-        if (!HasInputAuthority)
-            return;
-
         if (IsMovementBlocked)
         {
-            // Se travado, garantimos que o player pare completamente
             _velocity = Vector3.zero;
             return;
         }
 
-        // 1. Aplica e zera a velocidade de queda no chão
-        if (_controller.isGrounded && _velocity.y < 0)
-            _velocity.y = -1f;
+        if (IsGrounded && _velocity.y < 0)
+            _velocity.y = -2f;
 
-        // 2. Processamento do Pulo e Gravidade
+        HandleJump();
+        ApplyGravity();
 
-        // A. Se pulo foi solicitado E estiver no chão E não estiver em outra animação de pulo, INICIA A ANIMAÇÃO.
-        if (_jumpPressed && _controller.isGrounded && !isJumpingAnimation)
-        {
-            isJumpingAnimation = true;
-            jumpStartTime = Time.time; // Inicia o timer
-            if (_animator != null)
-            {
-                _animator.SetBool("isJumping", true);
-            }
-            // Não aplica força vertical (Pulo Físico IGNORADO)
-            _jumpPressed = false;
-            Debug.Log("[PlayerMovement] Pulo iniciado.");
-        }
+        Vector3 horizontalMove = HandleHorizontalMovement();
 
-        // B. Aplica a Gravidade
-        // Isso é feito SEMPRE para que o player caia, mesmo durante a animação de pulo
-        _velocity.y += GravityValue * Runner.DeltaTime;
+        _controller.Move(
+            (horizontalMove + _velocity) * Time.deltaTime
+        );
 
-        // C. Prepara Movimento Horizontal
-        Vector3 finalMove = Vector3.zero;
-
-        // 3. Trava o movimento horizontal se estiver na animação de pulo
-        if (!isJumpingAnimation)
-        {
-            // --- Lógica de Movimento Horizontal (XZ) ---
-
-            float speed = PlayerSpeed;
-            finalMove = _moveInput;
-
-            if (IsInteracting)
-            {
-                // Lógica de travamento de eixo para Interação
-                if (Mathf.Abs(finalMove.x) > Mathf.Abs(finalMove.z))
-                    finalMove = new Vector3(finalMove.x, 0, 0);
-                else
-                    finalMove = new Vector3(0, 0, finalMove.z);
-
-                speed *= InteractSpeedMultiplier;
-            }
-
-            finalMove *= speed * Runner.DeltaTime; // Aplica velocidade e DeltaTime
-        }
-        else
-        {
-            // Se estiver pulando, o movimento horizontal é ZERO.
-            // A animação (se for Root Motion) ou um evento no Animator que deve mover o player.
-        }
-
-        // 4. Aplica Movimento Final (Horizontal + Vertical)
-        _controller.Move(finalMove + _velocity * Runner.DeltaTime);
-
-        // 5. Rotação: Só se houver movimento horizontal (não durante pulo)
-        if (finalMove.sqrMagnitude > 0.001f && CanRotate)
-            transform.forward = finalMove.normalized;
-
-        // 6. Integração com Animator (Idle/Walk) - Somente se não estiver pulando
-        if (!isJumpingAnimation)
-        {
-            HandleAnimator(finalMove);
-        }
-
-        // 7. Reseta Inputs (o _jumpPressed já foi resetado na seção 2.A)
+        HandleRotation();
+        HandleAnimator(horizontalMove);
     }
 
-    // =================================================================
-    // MÉTODOS AUXILIARES
-    // =================================================================
-
-    private void HandleAnimator(Vector3 currentMove)
+    private void HandleJump()
     {
-        if (_animator != null)
-        {
-            float horizontalSpeed = currentMove.magnitude / (PlayerSpeed * Runner.DeltaTime);
+        if (!_jumpPressed) return;
 
-            if (horizontalSpeed > 0.1f)
-            {
-                _animator.SetBool("isWalking", true);
-            }
-            else
-            {
-                _animator.SetBool("isWalking", false);
-            }
-            _animator.SetFloat("Speed", horizontalSpeed);
-        }
+        isJumpingAnimation = true;
+        jumpStartTime = Time.time;
+
+        if (_animator != null)
+            _animator.SetBool("isJumping", true);
+
+        _jumpPressed = false;
     }
 
-    // Implementação da interface: Bloqueia/desbloqueia movimento
+    private void ApplyGravity()
+    {
+        _velocity.y += GravityValue * Time.deltaTime;
+    }
+
+    private Vector3 HandleHorizontalMovement()
+    {
+        if (isJumpingAnimation) return Vector3.zero;
+
+        Vector3 move = _moveInput;
+        float speed = PlayerSpeed;
+
+        if (IsInteracting)
+        {
+            if (Mathf.Abs(move.x) > Mathf.Abs(move.z))
+                move = new Vector3(move.x, 0, 0);
+            else
+                move = new Vector3(0, 0, move.z);
+
+            speed *= InteractSpeedMultiplier;
+        }
+
+        _desiredDirection = move.normalized;
+        return move * speed;
+    }
+
+    // =================================================================
+    // ROTAÇÃO SUAVE
+    // =================================================================
+
+    private void HandleRotation()
+    {
+        if (!CanRotate) return;
+        if (_desiredDirection.sqrMagnitude < 0.001f) return;
+
+        Quaternion targetRotation = Quaternion.LookRotation(_desiredDirection);
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            targetRotation,
+            RotationSpeed * Time.deltaTime
+        );
+    }
+
+    // =================================================================
+    // ANIMAÇÃO
+    // =================================================================
+
+    private void UpdateJumpAnimationState()
+    {
+        if (!isJumpingAnimation || _animator == null) return;
+
+        AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(0);
+
+        if (state.IsName("Jump") && state.normalizedTime >= 1f)
+            ResetJumpAnimation();
+        else if (Time.time - jumpStartTime > JumpAnimationTimeout)
+            ResetJumpAnimation();
+    }
+
+    private void ResetJumpAnimation()
+    {
+        isJumpingAnimation = false;
+        _animator.SetBool("isJumping", false);
+    }
+
+    private void HandleAnimator(Vector3 move)
+    {
+        if (_animator == null || isJumpingAnimation) return;
+
+        float speedPercent = move.magnitude / PlayerSpeed;
+        _animator.SetBool("isWalking", speedPercent > 0.05f);
+        _animator.SetFloat("Speed", speedPercent);
+    }
+
+    // =================================================================
+    // INTERFACE
+    // =================================================================
+
     public void SetMovementBlocked(bool isBlocked)
     {
         IsMovementBlocked = isBlocked;
-        // Opcional: Desligar animações de movimento quando travado
-        if (isBlocked && _animator != null)
+
+        if (_animator != null)
         {
             _animator.SetBool("isWalking", false);
-            _animator.SetBool("isIdle", true);
             _animator.SetBool("isJumping", false);
-            _animator.SetBool("isFalling", false);
         }
     }
 }
