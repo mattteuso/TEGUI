@@ -28,7 +28,7 @@ public class PlayerCameraFollow : MonoBehaviour
         );
     }
 
-    // Opcional: definir target via código
+    //definir target via codigo
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;

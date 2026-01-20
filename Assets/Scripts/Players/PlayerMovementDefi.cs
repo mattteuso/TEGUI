@@ -60,7 +60,7 @@ public class PlayerMovementDefi : MonoBehaviour, IPlayerMovement
     private void Update()
     {
         UpdateJumpAnimationState();
-        HandleMovement(); // ⚠️ Agora em Update
+        HandleMovement();
     }
 
     // =================================================================
