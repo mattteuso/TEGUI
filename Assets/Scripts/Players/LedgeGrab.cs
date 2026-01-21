@@ -1,20 +1,16 @@
 ﻿using UnityEngine;
-using Fusion;
+using UnityEngine.InputSystem;
 using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
-public class LedgeGrab : NetworkBehaviour
+public class LedgeGrab : MonoBehaviour
 {
-    // ───────────────────────────────────────────────────────────────────────────────
     #region === REFERENCES ===
     private CharacterController controller;
     private PlayerMovement playerMovement;
     private Animator animator;
     #endregion
-    // ───────────────────────────────────────────────────────────────────────────────
 
-
-    // ───────────────────────────────────────────────────────────────────────────────
     #region === SETTINGS ===
     [Header("Ledge Config")]
     public LayerMask ledgeLayer;
@@ -26,16 +22,10 @@ public class LedgeGrab : NetworkBehaviour
     public int rayAmount = 5;
     public float rayOffset = 0.15f;
 
-    // NOVO: Prefab da Partícula
-    [Header("Efeitos")]
-    public GameObject grabEffectPrefab;
-    public float effectDuration = 1.0f;
-    public float effectForwardOffset = 0.1f;
-
-    [Header("Lateral Rays")]
+    [Header("Lateral Movement")]
     public float lateralRayLength = 0.5f;
-    public float lateralRayOffset = 0.1f;
-    public float ledgeContinuityLateralOffset = 0.25f;
+    [Tooltip("Distância lateral para checar se a borda continua")]
+    public float ledgeContinuityLateralOffset = 0.3f;
 
     [Header("Climb")]
     public float climbUpHeight = 1.5f;
@@ -43,33 +33,16 @@ public class LedgeGrab : NetworkBehaviour
 
     [Header("Input & Behavior")]
     public bool autoGrab = true;
-    public KeyCode releaseKey = KeyCode.LeftShift;
-
-    [Header("Delay do Jump (para sincronizar animação)")]
     public float jumpDelay = 0.25f;
     #endregion
-    // ───────────────────────────────────────────────────────────────────────────────
 
-
-    // ───────────────────────────────────────────────────────────────────────────────
-    #region === CONSTANTS ===
-    private const float grabCooldown = 0.45f;
-    private const float grabJumpInputDelay = 0.3f;
-    private const float jumpCooldownDuration = 0.5f; // Delay para impedir spamming de grab jumps
-    #endregion
-    // ───────────────────────────────────────────────────────────────────────────────
-
-
-    // ───────────────────────────────────────────────────────────────────────────────
     #region === STATE ===
     public bool isGrabbing;
-    private bool canGrab;
+    public bool isClimbing;
     private bool grabBlocked;
     private bool jumpBlockedAfterGrab;
-    private bool jumpOnCooldown; // Controla cooldown após grab jump
-    private bool isGrabJumping; // Novo: impede múltiplos grab jumps simultâneos
-    public bool isClimbing;
-    private bool jumpLockedUntilEnd;
+    private bool jumpOnCooldown;
+    private bool isGrabJumping;
 
     private RaycastHit lastLedgeHit;
     private Quaternion grabRotation;
@@ -78,61 +51,40 @@ public class LedgeGrab : NetworkBehaviour
     private float horizontalInput;
     private bool jumpPressed;
     private bool releasePressed;
-
-
-    // Debug
-    private Vector3 debugRayOrigin;
-    private Vector3 debugRayHitPoint;
-    private bool debugCanGrab;
     #endregion
-    // ───────────────────────────────────────────────────────────────────────────────
 
-
-    // ───────────────────────────────────────────────────────────────────────────────
-    #region === SPAWN ===
-
-    public override void Spawned()
+    private void Awake()
     {
         controller = GetComponent<CharacterController>();
         playerMovement = GetComponent<PlayerMovement>();
         animator = GetComponentInChildren<Animator>();
     }
 
+    #region === INPUT SYSTEM CALLBACKS ===
+    public void OnMove(InputValue value)
+    {
+        Vector2 input = value.Get<Vector2>();
+        horizontalInput = input.x;
+    }
+
+    public void OnJump(InputValue value)
+    {
+        if (value.isPressed && isGrabbing && !jumpOnCooldown && !jumpBlockedAfterGrab && !isGrabJumping)
+        {
+            jumpPressed = true;
+        }
+    }
+
+    public void OnRelease(InputValue value)
+    {
+        if (value.isPressed && isGrabbing)
+            releasePressed = true;
+    }
     #endregion
-    // ───────────────────────────────────────────────────────────────────────────────
-
-
-    // ───────────────────────────────────────────────────────────────────────────────
-    #region === UPDATE (PROS INPUTS) ===
 
     private void Update()
     {
-        if (!HasInputAuthority)
-            return;
-
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-
-        // Verifica jumpOnCooldown e jumpBlockedAfterGrab antes de permitir jumpPressed
-        if (!jumpOnCooldown && !jumpBlockedAfterGrab && Input.GetButtonDown("Jump"))
-            jumpPressed = true;
-
-        if (Input.GetKeyDown(releaseKey))
-            releasePressed = true;
-
-        DrawGrabDebugRays();
-    }
-
-    #endregion
-    // ───────────────────────────────────────────────────────────────────────────────
-
-
-    // ───────────────────────────────────────────────────────────────────────────────
-    #region === FIXED UPDATE ===
-
-    public override void FixedUpdateNetwork()
-    {
-        if (!HasInputAuthority)
-            return;
+        if (isClimbing) return;
 
         TryDetectLedge();
 
@@ -140,295 +92,25 @@ public class LedgeGrab : NetworkBehaviour
         {
             HandleHorizontalMovement();
 
-            // Modificado: Adiciona !isGrabJumping para impedir múltiplos grab jumps
-            if (jumpPressed && !isGrabJumping)
+            if (jumpPressed)
             {
-                animator?.SetTrigger("GrabJump");
-                animator?.SetBool("IsGrabIdle", false);
-                Runner.StartCoroutine(JumpDelayRoutine());
+                jumpPressed = false;
+                StartCoroutine(JumpDelayRoutine());
             }
 
             if (releasePressed)
-                ReleaseLedge();
-        }
-
-        jumpPressed = false;
-        releasePressed = false;
-    }
-
-    #endregion
-    // ───────────────────────────────────────────────────────────────────────────────
-
-
-    // ───────────────────────────────────────────────────────────────────────────────
-    #region === DETECTOR ===
-
-    private void TryDetectLedge()
-    {
-        if (isGrabbing || controller.isGrounded || grabBlocked)
-            return;
-
-        for (int i = 0; i < rayAmount; i++)
-        {
-            Vector3 origin = transform.position + Vector3.up * (rayHeight + rayOffset * i);
-
-            if (Physics.Raycast(origin, transform.forward, out RaycastHit hit, rayLength, ledgeLayer) &&
-                hit.collider.CompareTag("Ledge"))
             {
-                lastLedgeHit = hit;
-                canGrab = true;
-
-                if (autoGrab)
-                    StartGrab();
-
-                return;
+                releasePressed = false;
+                ReleaseLedge();
             }
         }
 
-        canGrab = false;
+        DrawGrabDebugRays();
     }
 
-    #endregion
-    // ───────────────────────────────────────────────────────────────────────────────
-
-
-    // ───────────────────────────────────────────────────────────────────────────────
-    #region === AGARRAR/SOLTAR ===
-
-    private void StartGrab()
+    private void TryDetectLedge()
     {
-        isGrabbing = true;
-        canGrab = false;
-
-        controller.enabled = false;
-        playerMovement.enabled = false;
-
-        grabRotation = Quaternion.LookRotation(-lastLedgeHit.normal, Vector3.up);
-        transform.rotation = grabRotation;
-
-        Vector3 grabPos =
-            lastLedgeHit.point +
-            Vector3.up * grabHeightOffset -
-            grabRotation * Vector3.forward * grabForwardOffset;
-
-        transform.position = grabPos;
-
-        animator?.SetTrigger("Grab");
-        animator?.SetBool("IsGrabbing", true);
-        animator?.SetBool("IsGrabIdle", true);
-
-        Runner.StartCoroutine(GrabInputDelay());
-
-        // NOVO: Chama o RPC para sincronizar o efeito de partícula
-        RPC_PlayGrabEffect(lastLedgeHit.point, grabRotation, effectForwardOffset);
-    }
-
-    private void ReleaseLedge()
-    {
-        jumpLockedUntilEnd = false;
-        isGrabbing = false;
-
-        controller.enabled = true;
-        playerMovement.enabled = true;
-
-        animator?.SetBool("IsGrabbing", false);
-        animator?.SetBool("IsGrabWalkingLeft", false);
-        animator?.SetBool("IsGrabWalkingRight", false);
-        animator?.SetBool("IsGrabIdle", false);
-
-        transform.position -= transform.forward * 0.1f;
-
-        Runner.StartCoroutine(GrabCooldownRoutine());
-    }
-
-    #endregion
-    // ───────────────────────────────────────────────────────────────────────────────
-
-
-    // ───────────────────────────────────────────────────────────────────────────────
-    #region === EFEITOS (RPC) ===
-
-    // RPC: Chamado pelo InputAuthority e executado em todos os clientes
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
-    private void RPC_PlayGrabEffect(Vector3 hitPoint, Quaternion playerRotation, float forwardOffset)
-    {
-        // O playerRotation já está alinhado com a parede (forward do player aponta para a parede).
-        // Usamos playerRotation * Vector3.forward para obter a direção PARA A PAREDE.
-        // O hitPoint é o ponto na superfície da parede.
-
-        // CÁLCULO DE POSIÇÃO AJUSTADO:
-        // Ponto de Acerto - (Direção PARA a parede * Offset)
-        Vector3 spawnPosition = hitPoint - (playerRotation * Vector3.forward * forwardOffset);
-
-        // Rotação: Vira a partícula para longe da parede (normal do hit)
-        // OBS: Você pode querer usar Quaternion.identity ou a rotação do player (playerRotation) 
-        // dependendo de como sua partícula está configurada. Usaremos a normal para apontar 
-        // "para fora" da parede, como estava na versão anterior, mas com o ponto ajustado.
-
-        // A 'lastLedgeHit' não está disponível no RPC, então calcularemos a rotação
-        // de forma simples ou, se for um efeito geral, podemos usar a rotação do player.
-        // Vamos usar uma rotação simples para a partícula.
-        Quaternion effectRotation = Quaternion.identity;
-
-        // Instancia o efeito
-        if (grabEffectPrefab != null)
-        {
-            GameObject effect = Instantiate(grabEffectPrefab, spawnPosition, effectRotation);
-
-            // Destrói a partícula após a duração definida
-            Destroy(effect, effectDuration);
-        }
-    }
-
-    #endregion
-    // ───────────────────────────────────────────────────────────────────────────────
-
-
-    // ───────────────────────────────────────────────────────────────────────────────
-    #region === MOVIMENTO AGARRANDO ===
-
-    private void HandleHorizontalMovement()
-    {
-        transform.rotation = grabRotation;
-
-        if (Mathf.Abs(horizontalInput) < 0.1f)
-        {
-            animator?.SetBool("IsGrabIdle", true);
-            animator?.SetBool("IsGrabWalkingLeft", false);
-            animator?.SetBool("IsGrabWalkingRight", false);
-            return;
-        }
-
-        Vector3 dir = horizontalInput > 0 ? transform.right : -transform.right;
-
-        if (BlockedByWall(dir))
-            return;
-
-        if (!HasLedgeAhead(dir))
-            return;
-
-        transform.position += dir * moveSpeed * Runner.DeltaTime;
-
-        animator?.SetBool("IsGrabIdle", false);
-        animator?.SetBool("IsGrabWalkingLeft", horizontalInput < 0);
-        animator?.SetBool("IsGrabWalkingRight", horizontalInput > 0);
-    }
-
-    private bool BlockedByWall(Vector3 dir)
-    {
-        Vector3 origin = transform.position + Vector3.up * lateralRayOffset;
-        return Physics.Raycast(origin, dir, out RaycastHit hit, lateralRayLength) &&
-                !hit.collider.CompareTag("Ledge");
-    }
-
-    private bool HasLedgeAhead(Vector3 dir)
-    {
-        Vector3 origin =
-            transform.position +
-            dir * ledgeContinuityLateralOffset +
-            Vector3.up * lateralRayOffset;
-
-        return Physics.Raycast(
-            origin,
-            transform.forward,
-            out RaycastHit hit,
-            rayLength * 0.8f,
-            ledgeLayer
-        );
-    }
-
-    #endregion
-    // ───────────────────────────────────────────────────────────────────────────────
-
-
-    // ───────────────────────────────────────────────────────────────────────────────
-    #region === SUBIR ===
-
-    private System.Collections.IEnumerator JumpDelayRoutine()
-    {
-        isGrabJumping = true; // Novo: Bloqueia novos grab jumps até terminar
-
-        yield return new WaitForSeconds(jumpDelay);
-
-        if (!isGrabbing)
-            yield break;
-
-        // Ativa cooldown após grab jump para impedir spamming
-        jumpOnCooldown = true;
-        Runner.StartCoroutine(JumpCooldownRoutine());
-
-        Runner.StartCoroutine(ClimbUpRoutine());
-    }
-
-    private System.Collections.IEnumerator ClimbUpRoutine()
-    {
-        isClimbing = true;
-
-        Vector3 start = transform.position;
-        Vector3 end = start + Vector3.up * climbUpHeight;
-
-        float t = 0;
-        while (t < 1f)
-        {
-            t += Time.deltaTime * climbUpSpeed;
-            transform.position = Vector3.Lerp(start, end, t);
-            yield return null;
-        }
-
-        controller.enabled = true;
-        playerMovement.enabled = true;
-
-        animator.SetBool("IsGrabbing", false);
-        animator.SetBool("IsGrabIdle", false);
-
-        isClimbing = false;
-        isGrabbing = false;
-        jumpLockedUntilEnd = false;
-
-        playerMovement._velocity.y = 0f;
-
-        isGrabJumping = false; // Novo: Libera para permitir novos grab jumps
-    }
-
-
-    #endregion
-    // ───────────────────────────────────────────────────────────────────────────────
-
-
-    // ───────────────────────────────────────────────────────────────────────────────
-    #region === TIMERS ===
-
-    private IEnumerator GrabCooldownRoutine()
-    {
-        grabBlocked = true;
-        yield return new WaitForSeconds(grabCooldown);
-        grabBlocked = false;
-    }
-
-    private IEnumerator GrabInputDelay()
-    {
-        jumpBlockedAfterGrab = true;
-        yield return new WaitForSeconds(grabJumpInputDelay);
-        jumpBlockedAfterGrab = false;
-    }
-
-    // Coroutine para resetar o cooldown de jump após grab jump
-    private IEnumerator JumpCooldownRoutine()
-    {
-        yield return new WaitForSeconds(jumpCooldownDuration);
-        jumpOnCooldown = false;
-    }
-
-    #endregion
-    // ───────────────────────────────────────────────────────────────────────────────
-
-
-    // ───────────────────────────────────────────────────────────────────────────────
-    #region === DEBUG ===
-
-    private void DrawGrabDebugRays()
-    {
-        if (controller.isGrounded) { debugCanGrab = false; return; }
+        if (isGrabbing || controller.isGrounded || grabBlocked) return;
 
         for (int i = 0; i < rayAmount; i++)
         {
@@ -436,17 +118,193 @@ public class LedgeGrab : NetworkBehaviour
 
             if (Physics.Raycast(origin, transform.forward, out RaycastHit hit, rayLength, ledgeLayer))
             {
-                debugCanGrab = true;
-                debugRayOrigin = origin;
-                debugRayHitPoint = hit.point;
-                Debug.DrawLine(origin, hit.point, Color.green);
-                return;
+                if (hit.collider.CompareTag("Ledge"))
+                {
+                    lastLedgeHit = hit;
+                    StartGrab();
+                    return;
+                }
             }
-
-            Debug.DrawLine(origin, origin + transform.forward * rayLength, Color.red);
         }
     }
 
+    private void StartGrab()
+    {
+        isGrabbing = true;
+        controller.enabled = false;
+        playerMovement.enabled = false;
+
+        grabRotation = Quaternion.LookRotation(-lastLedgeHit.normal, Vector3.up);
+        transform.rotation = grabRotation;
+
+        Vector3 grabPos = lastLedgeHit.point +
+                         Vector3.up * grabHeightOffset -
+                         grabRotation * Vector3.forward * grabForwardOffset;
+
+        transform.position = grabPos;
+
+        animator?.SetTrigger("Grab");
+        animator?.SetBool("IsGrabbing", true);
+        animator?.SetBool("IsGrabIdle", true);
+
+        StartCoroutine(GrabInputDelay());
+    }
+
+    private void HandleHorizontalMovement()
+    {
+        transform.rotation = grabRotation;
+
+        if (Mathf.Abs(horizontalInput) < 0.1f)
+        {
+            SetGrabAnimations(true, false, false);
+            return;
+        }
+
+        Vector3 moveDir = horizontalInput > 0 ? transform.right : -transform.right;
+
+        // CORREÇÃO
+        bool canMove = !BlockedByWall(moveDir) && HasLedgeAhead(moveDir);
+
+        if (canMove)
+        {
+            transform.position += moveDir * moveSpeed * Time.deltaTime;
+            SetGrabAnimations(false, horizontalInput < 0, horizontalInput > 0);
+        }
+        else
+        {
+            SetGrabAnimations(true, false, false);
+        }
+    }
+
+    private void SetGrabAnimations(bool idle, bool left, bool right)
+    {
+        animator?.SetBool("IsGrabIdle", idle);
+        animator?.SetBool("IsGrabWalkingLeft", left);
+        animator?.SetBool("IsGrabWalkingRight", right);
+    }
+
+    private bool BlockedByWall(Vector3 dir)
+    {
+        // Usa rayHeight para garantir que o raio saia da altura das mãos
+        Vector3 origin = transform.position + Vector3.up * rayHeight;
+        Debug.DrawRay(origin, dir * lateralRayLength, Color.blue);
+
+        if (Physics.Raycast(origin, dir, out RaycastHit hit, lateralRayLength))
+        {
+            // Bloqueia se atingir algo que NÃO seja a borda
+            return !hit.collider.CompareTag("Ledge");
+        }
+        return false;
+    }
+
+    private bool HasLedgeAhead(Vector3 dir)
+    {
+        // Projeta o raio para frente, mas deslocado para o lado do movimento
+        Vector3 lateralOrigin = transform.position + (dir * ledgeContinuityLateralOffset) + (Vector3.up * rayHeight);
+        Debug.DrawRay(lateralOrigin, transform.forward * rayLength, Color.yellow);
+
+        return Physics.Raycast(lateralOrigin, transform.forward, out RaycastHit hit, rayLength, ledgeLayer);
+    }
+
+    private void ReleaseLedge()
+    {
+        isGrabbing = false;
+        controller.enabled = true;
+        playerMovement.enabled = true;
+
+        animator?.SetBool("IsGrabbing", false);
+        SetGrabAnimations(false, false, false);
+
+        transform.position -= transform.forward * 0.2f;
+        StartCoroutine(GrabCooldownRoutine());
+    }
+
+    #region === COROUTINES ===
+    private IEnumerator JumpDelayRoutine()
+    {
+        isGrabJumping = true;
+        animator?.SetTrigger("GrabJump");
+        animator?.SetBool("IsGrabIdle", false);
+
+        yield return new WaitForSeconds(jumpDelay);
+
+        if (isGrabbing)
+        {
+            jumpOnCooldown = true;
+            StartCoroutine(JumpCooldownRoutine());
+            StartCoroutine(ClimbUpRoutine());
+        }
+        isGrabJumping = false;
+    }
+
+    private IEnumerator ClimbUpRoutine()
+    {
+        isClimbing = true;
+        // o playerMovement desativado para não interferir na gravidade/input
+        controller.enabled = true;
+
+        float raisedHeight = 0;
+        while (raisedHeight < climbUpHeight)
+        {
+            float step = climbUpSpeed * Time.deltaTime;
+            // Usamos Vector3.up * step para subir
+            controller.Move(Vector3.up * step);
+            raisedHeight += step;
+            yield return null;
+        }
+
+        float movedForward = 0;
+        float forwardDistance = 0.5f; // Distância segura para entrar na plataforma
+        while (movedForward < forwardDistance)
+        {
+            float step = climbUpSpeed * Time.deltaTime;
+            // Move na direção que o player está olhando (para a plataforma)
+            //respeitar paredes B)
+            controller.Move(transform.forward * step);
+            movedForward += step;
+            yield return null;
+        }
+
+        // Finalização
+        isClimbing = false;
+        isGrabbing = false;
+        isGrabJumping = false;
+
+        playerMovement.enabled = true;
+        playerMovement._velocity.y = 0;
+
+        animator?.SetBool("IsGrabbing", false);
+        animator?.SetBool("IsGrabIdle", false);
+    }
+
+    private IEnumerator GrabCooldownRoutine()
+    {
+        grabBlocked = true;
+        yield return new WaitForSeconds(0.5f);
+        grabBlocked = false;
+    }
+
+    private IEnumerator GrabInputDelay()
+    {
+        jumpBlockedAfterGrab = true;
+        yield return new WaitForSeconds(0.3f);
+        jumpBlockedAfterGrab = false;
+    }
+
+    private IEnumerator JumpCooldownRoutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        jumpOnCooldown = false;
+    }
     #endregion
-    // ───────────────────────────────────────────────────────────────────────────────
+
+    private void DrawGrabDebugRays()
+    {
+        if (controller.isGrounded) return;
+        for (int i = 0; i < rayAmount; i++)
+        {
+            Vector3 origin = transform.position + Vector3.up * (rayHeight + rayOffset * i);
+            Debug.DrawRay(origin, transform.forward * rayLength, Color.red);
+        }
+    }
 }

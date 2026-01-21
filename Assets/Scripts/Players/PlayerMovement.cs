@@ -1,82 +1,90 @@
-﻿using Fusion;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
 using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerMovement : NetworkBehaviour, IPlayerMovement
+public class PlayerMovement : MonoBehaviour, IPlayerMovement
 {
     private CharacterController _controller;
     private Animator _animator;
     private LedgeGrab ledgeGrab;
 
+    [Header("Configurações de Movimento")]
+    public float PlayerSpeed = 5f;
+    public float JumpForce = 10f;
+    public float GravityValue = -9.81f;
+    public float RotationSpeed = 10f;
+    [Tooltip("Sensibilidade para ativar animação de andar")]
+    public float animationThreshold = 0.1f;
+
+    [Header("Lata de Tinta")]
+    public GameObject paintCan;
+    public float paintCanDuration = 2f;
+    private bool PaintCanActive { get; set; }
+
+    // Propriedades da Interface/Estado
     public bool IsGrounded => _controller != null && _controller.isGrounded;
     public bool IsMovementBlocked = false;
 
+    // Variáveis de Controle Interno
     public Vector3 _velocity;
+    private Vector2 _inputVector;
     private bool _jumpPressed;
     private bool wasGroundedLastFrame = false;
     private bool isJumping;
     private bool isFalling;
-    private float landTimer;
+    public float HorizontalInput => _inputVector.x;
 
-    private Vector3 _moveInput;
-
-    [Header("Configurações")]
-    public float PlayerSpeed = 5f;
-    public float JumpForce = 10f;
-    public float GravityValue = -9.81f;
-
-    [Header("Lata de Tinta (Sincronizada)")]
-    public GameObject paintCan;
-    public float paintCanDuration = 2f;
-
-    [Networked] private bool PaintCanActive { get; set; }
-    private bool lastPaintCanState = false;
-
-    public override void Spawned()
+    private void Awake()
     {
         _controller = GetComponent<CharacterController>();
         _animator = GetComponentInChildren<Animator>();
         ledgeGrab = GetComponent<LedgeGrab>();
+    }
 
+    private void Start()
+    {
         if (paintCan != null)
             paintCan.SetActive(false);
 
-        if (Object.HasInputAuthority)
+        // Busca o HUD na cena
+        var hudObject = GameObject.Find("PlayerHUD");
+        if (hudObject != null)
         {
-            var hudObject = GameObject.Find("PlayerHUD");
-
-            if (hudObject != null)
-            {
-                var hudScript = hudObject.GetComponent<PlayerHUD>();
-                if (hudScript != null)
-                    hudScript.SetPlayer(this);
-            }
+            var hudScript = hudObject.GetComponent<PlayerHUD>();
+            if (hudScript != null)
+                hudScript.SetPlayer(this);
         }
     }
 
-    void Update()
+    #region Input System Callbacks
+    // send messages
+
+    public void OnMove(InputValue value)
     {
-        if (!HasInputAuthority)
-            return;
-
-        _moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
-        if (Input.GetButtonDown("Jump"))
-            _jumpPressed = true;
-
-        if (Input.GetKeyDown(KeyCode.F))
-            TryUsePaintCan();
+        _inputVector = value.Get<Vector2>();
     }
 
-    public override void FixedUpdateNetwork()
+    public void OnJump(InputValue value)
     {
-        if (!HasInputAuthority)
-            return;
+        if (value.isPressed)
+            _jumpPressed = true;
+    }
 
-        // NÃO bloqueia movimento com lata
-        // if (PaintCanActive) return;
+    public void OnPaint(InputValue value)
+    {
+        if (value.isPressed)
+            TryUsePaintCan();
+    }
+    #endregion
 
+    void Update()
+    {
+        ApplyMovement();
+    }
+
+    private void ApplyMovement()
+    {
         if (ledgeGrab != null && (ledgeGrab.isGrabbing || ledgeGrab.isClimbing))
         {
             _velocity.y = -1f;
@@ -84,55 +92,75 @@ public class PlayerMovement : NetworkBehaviour, IPlayerMovement
             return;
         }
 
+        //Bloqueio de Movimento
         if (IsMovementBlocked)
         {
             _velocity = Vector3.zero;
+            UpdateAnimations(Vector3.zero, _controller.isGrounded);
             return;
         }
 
-        bool isGrounded = _controller.isGrounded;
+        bool isCurrentlyGrounded = _controller.isGrounded;
 
-        // ==== FALLING ====
-        if (!isGrounded && !isFalling && _velocity.y < -1f)
+        //(Falling)
+        if (!isCurrentlyGrounded && !isFalling && _velocity.y < -1f)
         {
             isFalling = true;
             _animator.SetBool("isFalling", true);
         }
 
-        // ==== LANDING (sem bloquear movimento) ====
-        if (isGrounded && !wasGroundedLastFrame && isFalling)
+        //(Landing)
+        if (isCurrentlyGrounded && !wasGroundedLastFrame && isFalling)
         {
             _animator.SetTrigger("Land");
             _animator.SetBool("isFalling", false);
             _animator.SetBool("isJumping", false);
-
             isFalling = false;
             isJumping = false;
         }
 
-        // ==== JUMP ====
-        if (_jumpPressed && isGrounded)
+        //Lógica de Pulo
+        if (_jumpPressed && isCurrentlyGrounded)
         {
             _velocity.y = JumpForce;
             _animator.SetBool("isJumping", true);
             isJumping = true;
         }
+        _jumpPressed = false; // Consome o input
 
-        // ==== GRAVITY ====
-        if (isGrounded && _velocity.y < 0)
-            _velocity.y = -1f;
-        else
-            _velocity.y += GravityValue * Runner.DeltaTime;
-
-        // ==== MOVEMENT (NUNCA BLOQUEADO) ====
-        Vector3 move = _moveInput.normalized * PlayerSpeed * Runner.DeltaTime;
-
-        _controller.Move(move + _velocity * Runner.DeltaTime);
-
-        // ==== ANIMATIONS ====
-        if (move.sqrMagnitude > 0.001f)
+        //Gravidade
+        if (isCurrentlyGrounded && _velocity.y < 0)
         {
-            transform.forward = move.normalized;
+            _velocity.y = -1f;
+        }
+        else
+        {
+            _velocity.y += GravityValue * Time.deltaTime;
+        }
+
+        //Cálculo de Direção (Horizontal)
+        Vector3 moveDirection = new Vector3(_inputVector.x, 0, _inputVector.y);
+
+        // Movimento Horizontal sem o DeltaTime para cálculo de animação estável
+        Vector3 horizontalMove = moveDirection.normalized * PlayerSpeed;
+
+        //Aplicação Final no CharacterController
+        // (Movimento Horizontal + Velocidade Vertical/Gravidade) * Time.deltaTime
+        _controller.Move((horizontalMove + _velocity) * Time.deltaTime);
+
+        //Atualização de Animações e Rotação
+        UpdateAnimations(moveDirection, isCurrentlyGrounded);
+
+        wasGroundedLastFrame = isCurrentlyGrounded;
+    }
+
+    private void UpdateAnimations(Vector3 moveInput, bool isGrounded)
+    {
+        if (moveInput.sqrMagnitude > animationThreshold)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(moveInput.normalized);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * RotationSpeed);
+
             _animator.SetBool("isWalking", true);
             _animator.SetBool("isIdle", false);
         }
@@ -141,13 +169,10 @@ public class PlayerMovement : NetworkBehaviour, IPlayerMovement
             _animator.SetBool("isWalking", false);
             _animator.SetBool("isIdle", true);
         }
-
-        _jumpPressed = false;
-        wasGroundedLastFrame = isGrounded;
     }
 
     // ===========================
-    //     PAINT CAN (RPC)
+    //         PAINT CAN
     // ===========================
 
     private void TryUsePaintCan()
@@ -155,37 +180,21 @@ public class PlayerMovement : NetworkBehaviour, IPlayerMovement
         if (!_controller.isGrounded) return;
         if (PaintCanActive) return;
 
-        RPC_UsePaintCan();
-    }
-
-    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
-    private void RPC_UsePaintCan()
-    {
-        if (PaintCanActive) return;
-
-        PaintCanActive = true;
         StartCoroutine(PaintCanRoutine());
     }
 
     private IEnumerator PaintCanRoutine()
     {
+        PaintCanActive = true;
         if (paintCan != null)
             paintCan.SetActive(true);
 
         yield return new WaitForSeconds(paintCanDuration);
 
+        if (paintCan != null)
+            paintCan.SetActive(false);
+
         PaintCanActive = false;
-    }
-
-    public override void Render()
-    {
-        if (PaintCanActive != lastPaintCanState)
-        {
-            lastPaintCanState = PaintCanActive;
-
-            if (paintCan != null)
-                paintCan.SetActive(PaintCanActive);
-        }
     }
 
     public void SetMovementBlocked(bool isBlocked)

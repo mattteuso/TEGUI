@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|d:\\projetos\\projetos unity\\2por1\\2por1\\assets\\scripts\\players\\playermovementdefi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|d:\\projetos\\projetos unity\\2por1\\2por1\\assets\\scripts\\players\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|D:\\Projetos\\Projetos Unity\\2por1\\2por1\\assets\\scripts\\players\\ledgegrab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\ledgegrab.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|D:\\Projetos\\Projetos Unity\\2por1\\2por1\\assets\\scripts\\players\\playermovementdefi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\playermovementdefi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|D:\\Projetos\\Projetos Unity\\2por1\\2por1\\assets\\scripts\\players\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|D:\\Projetos\\Projetos Unity\\2por1\\2por1\\assets\\scripts\\ui e menu\\defeatscreencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui e menu\\defeatscreencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\PlayerInputActions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\PlayerInputActions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,33 +30,70 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "PlayerMovementDefi.cs",
               "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
               "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
               "RelativeToolTip": "Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
-              "ViewState": "AgIAAL4AAAAAAAAAAAAswNUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-19T11:30:52.229Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PlayerInputActions.cs",
+              "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\PlayerInputActions.cs",
+              "RelativeDocumentMoniker": "Assets\\PlayerInputActions.cs",
+              "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\PlayerInputActions.cs",
+              "RelativeToolTip": "Assets\\PlayerInputActions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T11:27:36.559Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DefeatScreenController.cs",
+              "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\UI e Menu\\DefeatScreenController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI e Menu\\DefeatScreenController.cs",
+              "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\UI e Menu\\DefeatScreenController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI e Menu\\DefeatScreenController.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAwwEIAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-20T23:52:31.007Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "LedgeGrab.cs",
+              "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\LedgeGrab.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\LedgeGrab.cs",
+              "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\LedgeGrab.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Players\\LedgeGrab.cs",
+              "ViewState": "AgIAABoBAAAAAAAAAAAgwAUBAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-20T23:46:28.833Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "PlayerMovement.cs",
               "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerMovement.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\PlayerMovement.cs",
               "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerMovement.cs",
               "RelativeToolTip": "Assets\\Scripts\\Players\\PlayerMovement.cs",
-              "ViewState": "AgIAAKMAAAAAAAAAAAAowMYAAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAKEAAAAAAAAAAAAswJ8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-03T16:55:28.986Z"
+              "WhenOpened": "2025-12-03T16:55:28.986Z",
+              "EditorCaption": ""
             }
           ]
         }

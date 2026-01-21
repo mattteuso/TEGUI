@@ -338,7 +338,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2619685120943773538}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1 &2883212280932777835
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,6 +591,7 @@ MonoBehaviour:
   IsMovementBlocked: 0
   PlayerSpeed: 5
   GravityValue: -9.81
+  RotationSpeed: 10
   InteractSpeedMultiplier: 0.5
   JumpAnimationTimeout: 2
   CanRotate: 1

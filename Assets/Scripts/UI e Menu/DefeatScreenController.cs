@@ -59,12 +59,12 @@ public class DefeatScreenController : MonoBehaviour
         PlayerMovement[] players = FindObjectsOfType<PlayerMovement>();
         foreach (PlayerMovement player in players)
         {
-            if (player.HasInputAuthority)
-            {
-                localPlayerTag = player.gameObject.tag;
-                Debug.Log("[DefeatScreenController] Jogador local identificado: " + localPlayerTag);
-                return;
-            }
+            //if (player.HasInputAuthority)
+            //{
+            //    localPlayerTag = player.gameObject.tag;
+            //    Debug.Log("[DefeatScreenController] Jogador local identificado: " + localPlayerTag);
+            //    return;
+            //}
         }
 
         // Se não encontrou PlayerMovement, tenta PlayerMovementDefi
