@@ -1,18 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\",
+  "WorkspaceRootPath": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|D:\\Projetos\\Projetos Unity\\2por1\\2por1\\assets\\scripts\\players\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\assets\\scripts\\players\\playermovementdefi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\playermovementdefi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|d:\\projetos\\projetos unity\\2por1\\2por1\\assets\\scripts\\players\\playercamerafollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|c:\\users\\pedro\\onedrive\\documentos\\unreal projects\\individualota\\2por1\\assets\\scripts\\players\\playerinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\playerinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|c:\\users\\pedro\\onedrive\\documentos\\unreal projects\\individualota\\2por1\\assets\\scripts\\players\\objectinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\objectinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\assets\\scripts\\players\\playercamerafollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\playercamerafollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|d:\\projetos\\projetos unity\\2por1\\2por1\\assets\\scripts\\players\\playermovementdefi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\playermovementdefi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|c:\\users\\pedro\\onedrive\\documentos\\unreal projects\\individualota\\2por1\\assets\\scripts\\players\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,17 +30,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "PlayerMovementDefi.cs",
-              "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
+              "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
-              "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
+              "ToolTip": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
               "RelativeToolTip": "Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
-              "ViewState": "AgIAAMQAAAAAAAAAAAAUwD4AAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwD4AAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-19T11:30:52.229Z",
               "IsPinned": true,
@@ -41,10 +49,36 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "PlayerInteraction.cs",
+              "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Players\\PlayerInteraction.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\PlayerInteraction.cs",
+              "ToolTip": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Players\\PlayerInteraction.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Players\\PlayerInteraction.cs",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAcwHIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-24T20:44:03.308Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ObjectInteraction.cs",
+              "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Players\\ObjectInteraction.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\ObjectInteraction.cs",
+              "ToolTip": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Players\\ObjectInteraction.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Players\\ObjectInteraction.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAcwGMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-24T20:37:50.763Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "PlayerCameraFollow.cs",
-              "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerCameraFollow.cs",
+              "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Players\\PlayerCameraFollow.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\PlayerCameraFollow.cs",
-              "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerCameraFollow.cs",
+              "ToolTip": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Players\\PlayerCameraFollow.cs",
               "RelativeToolTip": "Assets\\Scripts\\Players\\PlayerCameraFollow.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -53,11 +87,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "PlayerMovement.cs",
-              "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerMovement.cs",
+              "DocumentMoniker": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Players\\PlayerMovement.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\PlayerMovement.cs",
-              "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerMovement.cs",
+              "ToolTip": "C:\\Users\\pedro\\OneDrive\\Documentos\\Unreal Projects\\individualota\\2por1\\Assets\\Scripts\\Players\\PlayerMovement.cs",
               "RelativeToolTip": "Assets\\Scripts\\Players\\PlayerMovement.cs",
               "ViewState": "AgIAAKMAAAAAAAAAAAAowMYAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

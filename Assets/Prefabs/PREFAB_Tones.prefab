@@ -1192,8 +1192,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe442cb2c13a85145ba8994b4bba1855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
   offset: {x: 0, y: 3, z: -6}
-  fixedRotation: {x: 20, y: 0, z: 0}
+  smoothSpeed: 10
 --- !u!114 &4715564634957933351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1455,7 +1456,6 @@ MonoBehaviour:
   - {fileID: 7123449814928521759}
   - {fileID: 4172216326533322461}
   - {fileID: 8926610378695528377}
-  - {fileID: -8263356558733698981}
   - {fileID: 634516262582072593}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &7123449814928521759
@@ -1545,9 +1545,8 @@ MonoBehaviour:
   interactLayer:
     serializedVersion: 2
     m_Bits: 1024
-  playerAnimator: {fileID: 5852129302946587669}
-  paintTrigger: Pixo
-  paintDelay: 2.6
+  carryPoint: {fileID: 0}
+  carrySpeedMultiplier: 0.7
   debugMode: 1
 --- !u!114 &634516262582072593
 MonoBehaviour:

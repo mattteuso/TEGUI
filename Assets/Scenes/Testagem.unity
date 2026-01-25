@@ -1572,6 +1572,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7317187224278829625, guid: 3ada9a01b3e51e04bbc47136bc7cdd2b, type: 3}
+      propertyPath: carryPoint
+      value: 
+      objectReference: {fileID: 1970993450}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2145,6 +2149,30 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &529746761 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1601171187763966316, guid: ed2f82297316be643bc4d7094945dedc, type: 3}
+  m_PrefabInstance: {fileID: 7993951958583260707}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &529746768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529746761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de3a9790d547a14e88c45dd612447c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactDistance: 2
+  interactLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  carryPoint: {fileID: 1970993450}
+  carrySpeedMultiplier: 0.7
+  debugMode: 1
 --- !u!43 &586068858
 Mesh:
   m_ObjectHideFlags: 0
@@ -6411,6 +6439,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &1970993450 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4969485591488888636, guid: 3ada9a01b3e51e04bbc47136bc7cdd2b, type: 3}
+  m_PrefabInstance: {fileID: 343064791}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &2002718825
 Mesh:
   m_ObjectHideFlags: 0
@@ -7485,10 +7518,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3082705723793538069, guid: ed2f82297316be643bc4d7094945dedc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1601171187763966316, guid: ed2f82297316be643bc4d7094945dedc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 529746768}
   m_SourcePrefab: {fileID: 100100000, guid: ed2f82297316be643bc4d7094945dedc, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
