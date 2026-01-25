@@ -59,7 +59,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dddc7dfb5de546a44b4c00d74d7d2b55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _TextureChangeCount: 0
 --- !u!114 &4249366368897268684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,6 +75,5 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 4225628221744534801}
+  NetworkedBehaviours: []
   ForceRemoteRenderTimeframe: 0

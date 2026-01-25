@@ -10,8 +10,11 @@ public class PlayerCarrySystem : MonoBehaviour
     [SerializeField] private float carrySpeedMultiplier = 0.6f;
 
     [Header("Configurações de Colisão")]
-    [SerializeField] private LayerMask wallLayer; // Layer das paredes (ex.: "Wall" ou "Obstacle")
-    [SerializeField] private float collisionCheckRadius = 0.5f; // Raio para verificar colisão
+    [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private float collisionCheckRadius = 0.5f;
+
+    [Header("Animação")]
+    [SerializeField] private Animator animator;
 
     [Header("Debug")]
     [SerializeField] private bool debugMode = true;
@@ -25,6 +28,7 @@ public class PlayerCarrySystem : MonoBehaviour
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovementDefi>();
+        if (animator == null) animator = GetComponentInChildren<Animator>();
     }
 
     private void Start()
@@ -35,16 +39,13 @@ public class PlayerCarrySystem : MonoBehaviour
 
     private void Update()
     {
-        // Verifica colisão enquanto carregando (para evitar passagem por paredes)
         if (carriedTransform != null)
         {
             CheckForWallCollision();
+            HandleCarryAnimations(); // Gerencia as animações enquanto carrega
         }
     }
 
-    // =================================================================
-    // INPUT SYSTEM CALLBACK
-    // =================================================================
     public void OnGrab(InputAction.CallbackContext context)
     {
         if (!context.started) return;
@@ -62,7 +63,6 @@ public class PlayerCarrySystem : MonoBehaviour
 
         if (Physics.Raycast(origin, dir, out RaycastHit hit, interactDistance, interactLayer))
         {
-            // Verifica se o objeto tem Rigidbody e a Tag correta
             Rigidbody rb = hit.collider.attachedRigidbody;
             if (rb != null && hit.collider.CompareTag("Carryable"))
             {
@@ -77,22 +77,25 @@ public class PlayerCarrySystem : MonoBehaviour
         carriedTransform = rb.transform;
         originalParent = carriedTransform.parent;
 
-        // --- AJUSTE DE COLISÃO ---
-        // Mantemos detectCollisions = true para ele bater nas paredes enquanto você carrega
         carriedRb.isKinematic = true;
         carriedRb.interpolation = RigidbodyInterpolation.None;
 
-        // Parentesco
         carriedTransform.SetParent(carryPoint);
         carriedTransform.localPosition = Vector3.zero;
         carriedTransform.localRotation = Quaternion.identity;
 
-        // Ajusta estado do Player
         if (playerMovement != null)
         {
             playerMovement.IsInteracting = true;
-            playerMovement.CanRotate = false; // Player olha apenas para frente
+            playerMovement.CanRotate = false;
             playerMovement.PlayerSpeed = originalSpeed * carrySpeedMultiplier;
+        }
+
+        // Inicia estados de animação
+        if (animator != null)
+        {
+            animator.SetBool("isPushing", true);
+            animator.SetBool("PushingIdle", true);
         }
 
         if (debugMode) Debug.Log($"[CarrySystem] Carregando: {carriedTransform.name}");
@@ -102,14 +105,10 @@ public class PlayerCarrySystem : MonoBehaviour
     {
         if (carriedTransform == null) return;
 
-        // Solta o objeto
         carriedTransform.SetParent(originalParent);
         carriedRb.isKinematic = false;
-
-        // Aplica uma pequena força para frente para não dropar "dentro" do player
         carriedRb.AddForce(transform.forward * 2f, ForceMode.Impulse);
 
-        // Restaura Player
         if (playerMovement != null)
         {
             playerMovement.IsInteracting = false;
@@ -117,23 +116,73 @@ public class PlayerCarrySystem : MonoBehaviour
             playerMovement.PlayerSpeed = originalSpeed;
         }
 
-        if (debugMode) Debug.Log("[CarrySystem] Objeto solto");
+        // Finaliza estados de animação
+        if (animator != null)
+        {
+            animator.SetBool("isPushing", false);
+            animator.SetBool("PushingIdle", false);
+            ResetPushAnimations();
+        }
 
         carriedRb = null;
         carriedTransform = null;
     }
 
-    // Novo método: Verifica se o objeto carregado está colidindo com paredes e solta se necessário
     private void CheckForWallCollision()
     {
         if (carriedTransform == null) return;
-
-        // Usa OverlapSphere para detectar colisões com paredes
         Collider[] hits = Physics.OverlapSphere(carriedTransform.position, collisionCheckRadius, wallLayer);
-        if (hits.Length > 0)
+        if (hits.Length > 0) DropObject();
+    }
+
+    // =================================================================
+    // LÓGICA DE ANIMAÇÃO (EXTRAÍDA DO SCRIPT 1)
+    // =================================================================
+
+    private void HandleCarryAnimations()
+    {
+        if (animator == null || playerMovement == null) return;
+
+        CharacterController cc = GetComponent<CharacterController>();
+
+        // Usamos cc.velocity para saber a direção REAL do movimento no mundo
+        Vector3 moveDir = cc.velocity;
+
+        // Se a velocidade for muito baixa, ficamos no Idle de empurrar
+        if (moveDir.sqrMagnitude < 0.1f)
         {
-            if (debugMode) Debug.Log("[CarrySystem] Objeto colidiu com parede — soltando automaticamente.");
-            DropObject();
+            ResetPushAnimations();
+            animator.SetBool("PushingIdle", true);
+            return;
         }
+
+        // A MÁGICA: Converte a velocidade do mundo para a "visão" do player
+        // Se localMove.z > 0, ele está indo para a frente dele mesmo.
+        // Se localMove.x > 0, ele está indo para a direita dele mesmo.
+        Vector3 localMove = transform.InverseTransformDirection(moveDir);
+        localMove.Normalize(); // Normalizamos para ter valores entre -1 e 1
+
+        animator.SetBool("PushingIdle", false);
+
+        // Usamos um threshold (0.3f) para permitir que animações laterais 
+        // funcionem mesmo se o player estiver levemente inclinado
+        bool forward = localMove.z > 0.3f;
+        bool backward = localMove.z < -0.3f;
+        bool right = localMove.x > 0.3f;
+        bool left = localMove.x < -0.3f;
+
+        animator.SetBool("PushForward", forward);
+        animator.SetBool("PushBackward", backward);
+        animator.SetBool("PushRight", right);
+        animator.SetBool("PushLeft", left);
+    }
+
+    private void ResetPushAnimations()
+    {
+        if (animator == null) return;
+        animator.SetBool("PushForward", false);
+        animator.SetBool("PushBackward", false);
+        animator.SetBool("PushRight", false);
+        animator.SetBool("PushLeft", false);
     }
 }

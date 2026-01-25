@@ -55,7 +55,7 @@ public class ChangeTextureObject : MonoBehaviour
         textureAlreadyChanged = true;
 
         // Incrementa contador global (se existir)
-        // TextureCounterController.Incrementar(); 
+        TextureCounterController.Incrementar(); 
 
         if (debugMode)
             Debug.Log("[ChangeTextureObject] Textura alterada pela primeira e única vez: " + index);

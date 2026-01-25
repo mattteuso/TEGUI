@@ -1,26 +1,27 @@
-using Fusion;
 using UnityEngine;
 
-public class TextureCounterController : NetworkBehaviour
+public class TextureCounterController : MonoBehaviour
 {
-    [Networked]
-    public int TextureChangeCount { get; set; }
+    // O contador agora é uma propriedade simples
+    public int TextureChangeCount { get; private set; }
 
     private static TextureCounterController instance;
     public static TextureCounterController Instance => instance;
 
-    public override void Spawned()
+    private void Awake()
     {
-        instance = this;
-
-        if (Object.HasStateAuthority)
+        // Singleton simples para Single Player
+        if (instance != null && instance != this)
         {
-            TextureChangeCount = 0;
+            Destroy(gameObject);
+            return;
         }
+
+        instance = this;
+        TextureChangeCount = 0;
     }
 
-    // Wrapper estático para facilitar chamadas externas.
-    // Chamem TextureCounterController.Incrementar() de qualquer lugar.
+    // Wrapper estático igual ao anterior para não quebrar seus outros scripts
     public static void Incrementar()
     {
         if (instance == null)
@@ -29,18 +30,12 @@ public class TextureCounterController : NetworkBehaviour
             return;
         }
 
-        // Chamamos o RPC na instância — o RPC será executado apenas no StateAuthority.
-        instance.RpcIncrementar();
+        instance.AddCount();
     }
 
-    // RPC executado no StateAuthority (host). Marca conforme o padrão do Fusion.
-    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void RpcIncrementar()
+    // Método que substitui o antigo RPC
+    public void AddCount()
     {
-        // Segurança extra: só conta se estivermos no StateAuthority.
-        if (!Object.HasStateAuthority)
-            return;
-
         TextureChangeCount++;
         Debug.Log($"[TextureCounterController] Contador atualizado -> {TextureChangeCount}");
     }
