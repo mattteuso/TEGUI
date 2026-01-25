@@ -61,24 +61,29 @@ public class LedgeGrab : MonoBehaviour
     }
 
     #region === INPUT SYSTEM CALLBACKS ===
-    public void OnMove(InputValue value)
+    public void OnMove(InputAction.CallbackContext context)
     {
-        Vector2 input = value.Get<Vector2>();
+        
+        Vector2 input = context.ReadValue<Vector2>();
         horizontalInput = input.x;
     }
 
-    public void OnJump(InputValue value)
+    public void OnJump(InputAction.CallbackContext context)
     {
-        if (value.isPressed && isGrabbing && !jumpOnCooldown && !jumpBlockedAfterGrab && !isGrabJumping)
+        
+        if (context.started && isGrabbing && !jumpOnCooldown && !jumpBlockedAfterGrab && !isGrabJumping)
         {
             jumpPressed = true;
         }
     }
 
-    public void OnRelease(InputValue value)
+    public void OnRelease(InputAction.CallbackContext context)
     {
-        if (value.isPressed && isGrabbing)
+        // Detecta o clique do botão configurado para soltar a borda
+        if (context.started && isGrabbing)
+        {
             releasePressed = true;
+        }
     }
     #endregion
 

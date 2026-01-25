@@ -57,25 +57,28 @@ public class PlayerMovementDefi : MonoBehaviour, IPlayerMovement
         _animator = GetComponentInChildren<Animator>();
     }
 
+
     private void Update()
     {
         UpdateJumpAnimationState();
-        HandleMovement(); // ⚠️ Agora em Update
+        HandleMovement(); //
     }
 
     // =================================================================
     // INPUT SYSTEM
     // =================================================================
 
-    public void OnMove(InputValue value)
+    public void OnMove(InputAction.CallbackContext context)
     {
-        _rawInput = value.Get<Vector2>();
+        // O valor é lido de forma diferente
+        _rawInput = context.ReadValue<Vector2>();
         _moveInput = new Vector3(_rawInput.x, 0, _rawInput.y);
     }
 
-    public void OnJump(InputValue value)
+    public void OnJump(InputAction.CallbackContext context)
     {
-        if (value.isPressed && IsGrounded && !isJumpingAnimation)
+        // Verifica se o botão foi pressionado (started) ou solto (canceled)
+        if (context.started && IsGrounded && !isJumpingAnimation)
         {
             _jumpPressed = true;
         }
@@ -210,4 +213,5 @@ public class PlayerMovementDefi : MonoBehaviour, IPlayerMovement
             _animator.SetBool("isJumping", false);
         }
     }
+
 }

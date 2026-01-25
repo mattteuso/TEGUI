@@ -60,15 +60,18 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     #region Input System Callbacks
     // send messages
 
-    public void OnMove(InputValue value)
+    public void OnMove(InputAction.CallbackContext context)
     {
-        _inputVector = value.Get<Vector2>();
+
+        _inputVector = context.ReadValue<Vector2>();
     }
 
-    public void OnJump(InputValue value)
+    public void OnJump(InputAction.CallbackContext context)
     {
-        if (value.isPressed)
+        if (context.started)
+        {
             _jumpPressed = true;
+        }
     }
 
     public void OnPaint(InputValue value)
@@ -209,4 +212,6 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
             _animator.SetBool("isFalling", false);
         }
     }
+
+
 }

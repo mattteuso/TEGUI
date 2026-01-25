@@ -1,7 +1,6 @@
-﻿using Fusion;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ChangeTextureObject : NetworkBehaviour
+public class ChangeTextureObject : MonoBehaviour
 {
     [Header("Debug")]
     [SerializeField] private bool debugMode = true;
@@ -24,37 +23,21 @@ public class ChangeTextureObject : NetworkBehaviour
     [Header("Audio")]
     private AudioSource audioSource;
 
-    // -------------------------------------------------------
-    // NETWORKED STATES
-    // -------------------------------------------------------
+    // Variáveis locais (substituem networked)
+    private int currentTextureIndex = -1;
+    private bool textureAlreadyChanged = false;
 
-    // Índice da textura
-    [Networked] private int CurrentTextureIndex { get; set; } = -1;
-
-    // Impede alterações futuras
-    [Networked] private NetworkBool textureAlreadyChanged { get; set; } = false;
-
-    private int lastAppliedIndex = -1;
-
-    // -------------------------------------------------------
-    public override void Spawned()
+    private void Awake()
     {
-        if (CurrentTextureIndex >= 0)
-        {
-            ApplyTexture(CurrentTextureIndex);
-            lastAppliedIndex = CurrentTextureIndex;
-        }
-
         audioSource = GetComponent<AudioSource>();
-        ApplyTexture(CurrentTextureIndex);
-        lastAppliedIndex = CurrentTextureIndex;
+        if (currentTextureIndex >= 0)
+        {
+            ApplyTexture(currentTextureIndex);
+        }
     }
 
-    // -------------------------------------------------------
-    // RPC — executa no StateAuthority
-    // -------------------------------------------------------
-    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    public void RpcApplyTextureIndex(int index)
+    // Método público para aplicar textura (chamado pelo PlayerInteraction)
+    public void ApplyTextureIndex(int index)
     {
         // Impede troca se já foi alterada antes
         if (textureAlreadyChanged)
@@ -68,21 +51,22 @@ public class ChangeTextureObject : NetworkBehaviour
         if (index < 0 || index > 4) return;
 
         // Atualiza textura
-        CurrentTextureIndex = index;
+        currentTextureIndex = index;
 
         // Marca como alterada para nunca mais trocar
         textureAlreadyChanged = true;
 
-        // Incrementa contador global
-        TextureCounterController.Incrementar();
+        // Incrementa contador global (se existir)
+        // TextureCounterController.Incrementar(); // Descomente se precisar
 
         if (debugMode)
             Debug.Log("[ChangeTextureObject] Textura alterada pela primeira e única vez: " + index);
+
+        // Aplica imediatamente
+        ApplyTexture(currentTextureIndex);
     }
 
-    // -------------------------------------------------------
     // Aplicação LOCAL da textura
-    // -------------------------------------------------------
     private void ApplyTexture(int index)
     {
         if (!targetRenderer) return;
@@ -124,7 +108,6 @@ public class ChangeTextureObject : NetworkBehaviour
             Debug.Log("[ChangeTextureObject] Textura aplicada localmente: " + index);
     }
 
-    // -------------------------------------------------------
     private void SpawnParticle(GameObject fx)
     {
         if (fx == null) return;
@@ -134,15 +117,5 @@ public class ChangeTextureObject : NetworkBehaviour
                       transform.position;
 
         Instantiate(fx, pos, Quaternion.identity);
-    }
-
-    // -------------------------------------------------------
-    public override void Render()
-    {
-        if (CurrentTextureIndex != lastAppliedIndex)
-        {
-            ApplyTexture(CurrentTextureIndex);
-            lastAppliedIndex = CurrentTextureIndex;
-        }
     }
 }

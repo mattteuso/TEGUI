@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8280977639958876134}
   - component: {fileID: 4504538102044934374}
   - component: {fileID: 348199002622881510}
-  - component: {fileID: 4823426382028154613}
   m_Layer: 10
   m_Name: cartaz_picho
   m_TagString: Untagged
@@ -134,25 +133,6 @@ MonoBehaviour:
   particleBPrefab: {fileID: 141433446842962269, guid: 610af74e67eb54042a0f64df2c14e66a, type: 3}
   particleCPrefab: {fileID: 141433446842962269, guid: f0aa0c04f36c6154baf26e104e7b8b92, type: 3}
   particleSpawnPoint: {fileID: 6649660374982697895}
---- !u!114 &4823426382028154613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2091044643329333168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SortKey: 1843417998
-  ObjectInterest: 1
-  Flags: 786433
-  NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 348199002622881510}
-  ForceRemoteRenderTimeframe: 0
 --- !u!1 &8403069702910188983
 GameObject:
   m_ObjectHideFlags: 0
