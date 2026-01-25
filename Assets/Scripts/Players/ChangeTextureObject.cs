@@ -23,7 +23,6 @@ public class ChangeTextureObject : MonoBehaviour
     [Header("Audio")]
     private AudioSource audioSource;
 
-    // Variáveis locais (substituem networked)
     private int currentTextureIndex = -1;
     private bool textureAlreadyChanged = false;
 
@@ -36,7 +35,6 @@ public class ChangeTextureObject : MonoBehaviour
         }
     }
 
-    // Método público para aplicar textura (chamado pelo PlayerInteraction)
     public void ApplyTextureIndex(int index)
     {
         // Impede troca se já foi alterada antes
@@ -57,7 +55,7 @@ public class ChangeTextureObject : MonoBehaviour
         textureAlreadyChanged = true;
 
         // Incrementa contador global (se existir)
-        // TextureCounterController.Incrementar(); // Descomente se precisar
+        // TextureCounterController.Incrementar(); 
 
         if (debugMode)
             Debug.Log("[ChangeTextureObject] Textura alterada pela primeira e única vez: " + index);
@@ -66,7 +64,6 @@ public class ChangeTextureObject : MonoBehaviour
         ApplyTexture(currentTextureIndex);
     }
 
-    // Aplicação LOCAL da textura
     private void ApplyTexture(int index)
     {
         if (!targetRenderer) return;
@@ -100,7 +97,6 @@ public class ChangeTextureObject : MonoBehaviour
                 break;
         }
 
-        // 🔊 Toca som se tiver AudioSource
         if (audioSource != null)
             audioSource.Play();
 

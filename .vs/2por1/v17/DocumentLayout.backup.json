@@ -3,28 +3,32 @@
   "WorkspaceRootPath": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|d:\\projetos\\projetos unity\\2por1\\2por1\\assets\\scripts\\players\\changetextureobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\changetextureobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|d:\\projetos\\projetos unity\\2por1\\2por1\\assets\\scripts\\players\\playerinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|D:\\Projetos\\Projetos Unity\\2por1\\2por1\\assets\\scripts\\players\\playerinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\playerinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|d:\\projetos\\projetos unity\\2por1\\2por1\\assets\\scripts\\players\\iplayermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\iplayermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|d:\\projetos\\projetos unity\\2por1\\2por1\\assets\\scripts\\players\\objectinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\objectinteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|d:\\projetos\\projetos unity\\2por1\\2por1\\assets\\scripts\\players\\playerswitchmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\playerswitchmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|D:\\Projetos\\Projetos Unity\\2por1\\2por1\\assets\\scripts\\players\\playermovementdefi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\playermovementdefi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|D:\\Projetos\\Projetos Unity\\2por1\\2por1\\assets\\scripts\\players\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|D:\\Projetos\\Projetos Unity\\2por1\\2por1\\assets\\scripts\\players\\playermovementdefi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\playermovementdefi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|D:\\Projetos\\Projetos Unity\\2por1\\2por1\\assets\\scripts\\players\\iplayermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\iplayermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|D:\\Projetos\\Projetos Unity\\2por1\\2por1\\assets\\scripts\\players\\changetextureobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2288CC6B-78B0-1479-3544-AE30A8216693}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\players\\changetextureobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,11 +38,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "ObjectInteraction.cs",
+              "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\ObjectInteraction.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\ObjectInteraction.cs",
+              "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\ObjectInteraction.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Players\\ObjectInteraction.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAQwGMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T16:21:00.837Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "ChangeTextureObject.cs",
               "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\ChangeTextureObject.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\ChangeTextureObject.cs",
@@ -46,12 +63,11 @@
               "RelativeToolTip": "Assets\\Scripts\\Players\\ChangeTextureObject.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAHgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-24T12:18:20.349Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-24T12:18:20.349Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "IPlayerMovement.cs",
               "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\IPlayerMovement.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\IPlayerMovement.cs",
@@ -59,46 +75,45 @@
               "RelativeToolTip": "Assets\\Scripts\\Players\\IPlayerMovement.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-24T12:15:21.63Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-24T12:15:21.63Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PlayerMovementDefi.cs",
-              "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
-              "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
-              "ViewState": "AgIAADQAAAAAAAAAAAAgwEYAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-19T11:30:52.229Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "PlayerInteraction.cs",
               "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerInteraction.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\PlayerInteraction.cs",
               "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerInteraction.cs",
               "RelativeToolTip": "Assets\\Scripts\\Players\\PlayerInteraction.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4AAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAAowD4AAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-24T12:14:59.738Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "PlayerSwitchManager.cs",
               "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerSwitchManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\PlayerSwitchManager.cs",
               "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerSwitchManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Players\\PlayerSwitchManager.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAgwC4AAAABAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAgwD0AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-24T11:55:15.989Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PlayerMovementDefi.cs",
+              "DocumentMoniker": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
+              "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Players\\PlayerMovementDefi.cs",
+              "ViewState": "AgIAAL8AAAAAAAAAAAAAANcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-19T11:30:52.229Z"
             },
             {
               "$type": "Document",
@@ -108,7 +123,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Players\\PlayerMovement.cs",
               "ToolTip": "D:\\Projetos\\Projetos Unity\\2por1\\2por1\\Assets\\Scripts\\Players\\PlayerMovement.cs",
               "RelativeToolTip": "Assets\\Scripts\\Players\\PlayerMovement.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAIwD8AAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAALsAAAAAAAAAAAAqwNcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-03T16:55:28.986Z"
             }

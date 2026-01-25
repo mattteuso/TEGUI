@@ -16,7 +16,6 @@ public class PlayerSwitchManager : MonoBehaviour
 
     private void Start()
     {
-        // Garante que todos mantenham o device pareado
         foreach (var p in playerInputs)
         {
             if (p == null) continue;
@@ -42,12 +41,10 @@ public class PlayerSwitchManager : MonoBehaviour
 
             bool isActive = (i == currentIndex);
 
-            // troca Action Map, NÃO desliga PlayerInput
             playerInputs[i].SwitchCurrentActionMap(
                 isActive ? gameplayMap : disabledMap
             );
 
-            // CÂMERA
             if (virtualCameras.Count > i && virtualCameras[i] != null)
             {
                 virtualCameras[i].Priority = isActive ? 20 : 10;

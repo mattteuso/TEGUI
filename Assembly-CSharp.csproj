@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Audio\PlaySoundExit.cs" />
     <Compile Include="Assets\Scripts\Players\PlayerInteraction.cs" />
     <Compile Include="Assets\Scripts\Audio\PlaySoundEnter.cs" />
+    <Compile Include="Assets\Scripts\Players\CarryObject.cs" />
     <Compile Include="Assets\Scripts\UI e Menu\PersistentEventSystem.cs" />
     <Compile Include="Assets\Scripts\Audio\UIButtonSound.cs" />
     <Compile Include="Assets\Scripts\Fusion\PlayerSpawner.cs" />

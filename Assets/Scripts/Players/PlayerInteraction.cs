@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem; // Adicionado para suportar CallbackContext
+using UnityEngine.InputSystem;
 using System.Collections;
 
 public class PlayerInteraction : MonoBehaviour
@@ -32,7 +32,6 @@ public class PlayerInteraction : MonoBehaviour
     // =================================================================
     public void OnInteract(InputAction.CallbackContext context)
     {
-        // 'started' garante que a interação só rode UMA vez por clique
         if (context.started)
         {
             if (debugMode) Debug.Log("[PlayerInteraction] Botão de Interação pressionado");
@@ -42,7 +41,6 @@ public class PlayerInteraction : MonoBehaviour
 
     private void TryInteract()
     {
-        // Verifica se o player está no chão via interface
         if (movement == null || !movement.IsGrounded)
         {
             if (debugMode) Debug.Log("[PlayerInteraction] Cancelado: Player no ar.");
@@ -57,7 +55,6 @@ public class PlayerInteraction : MonoBehaviour
             var obj = hit.collider.GetComponent<ChangeTextureObject>();
             if (obj == null) return;
 
-            // Executa a animação
             if (playerAnimator != null)
             {
                 playerAnimator.SetTrigger(paintTrigger);
@@ -75,7 +72,6 @@ public class PlayerInteraction : MonoBehaviour
 
         yield return new WaitForSeconds(paintDelay);
 
-        // Lógica de seleção por Tag (Player 1 ou Player 2)
         string playerTag = gameObject.tag;
         int textureIndex = 0;
 

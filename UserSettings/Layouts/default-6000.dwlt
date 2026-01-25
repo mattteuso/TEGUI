@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 1037
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Scene
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 111
+  controlID: 115
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -607,9 +607,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 36f9ffff
-      m_LastClickedID: -1738
-      m_ExpandedIDs: ecfaffffeefaffff62bd0000
+      m_SelectedIDs: 96f3ffff
+      m_LastClickedID: -3178
+      m_ExpandedIDs: 08f9ffffeefaffff94bd0000aabd0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1059,9 +1059,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -3.8543785, y: 3.7798593, z: -10.739964}
+    m_Target: {x: -3.773365, y: 0.9617269, z: -8.107904}
     speed: 2
-    m_Value: {x: -3.8543785, y: 3.7798593, z: -10.739964}
+    m_Value: {x: -3.773365, y: 0.9617269, z: -8.107904}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1109,11 +1109,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.06724484, y: -0.07846474, z: 0.0053804494, w: 0.99461967}
     speed: 2
-    m_Value: {x: 0.067245655, y: -0.078465685, z: 0.0053805145, w: 0.9946317}
+    m_Value: {x: -0.06724485, y: 0.07846475, z: -0.0053804494, w: -0.99461967}
   m_Size:
-    m_Target: 0.8660254
+    m_Target: 1.240063
     speed: 2
-    m_Value: 0.8660254
+    m_Value: 1.240063
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1368,7 +1368,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/Prefabs
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1378,16 +1378,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Projetos\Projetos Unity\2por1\2por1
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 41}
-    m_SelectedIDs: aec30000
-    m_LastClickedID: 50094
-    m_ExpandedIDs: 0000000092c3000094c3000096c3000098c300009ac300009cc300009ec30000a0c30000a2c30000a4c30000a6c30000a8c30000aac30000acc30000aec3000000ca9a3b
+    m_SelectedIDs: d2c50000
+    m_LastClickedID: 50642
+    m_ExpandedIDs: 0000000096c3000098c300009ac300009cc300009ec30000a0c30000a2c30000a4c30000a6c30000a8c30000aac30000acc30000aec30000b0c30000b2c3000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1416,7 +1416,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000092c3000094c3000096c3000098c300009ac300009cc300009ec30000a0c30000a2c30000a4c30000a6c30000a8c30000aac30000acc30000aec30000
+    m_ExpandedIDs: 0000000096c3000098c300009ac300009cc300009ec30000a0c30000a2c30000a4c30000a6c30000a8c30000aac30000acc30000aec30000b0c30000b2c30000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
