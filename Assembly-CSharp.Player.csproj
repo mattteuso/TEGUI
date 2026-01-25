@@ -83,6 +83,7 @@
     <Compile Include="Assets\Scripts\UI e Menu\LoadingScreenManager.cs" />
     <Compile Include="Assets\Scripts\Players\PlayerCameraFollow.cs" />
     <Compile Include="Assets\Scripts\Players\PlayerMovementDefi.cs" />
+    <Compile Include="Assets\Scripts\Players\PlayerCarrySystem.cs" />
     <Compile Include="Assets\Scripts\Audio\VolumeSettingsRefresher.cs" />
     <Compile Include="Assets\Scripts\UI e Menu\CountdownTimer.cs" />
     <Compile Include="Assets\Scripts\UI e Menu\UIRefresher.cs" />
