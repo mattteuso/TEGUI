@@ -1221,6 +1221,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 0b9e1d0e-0177-4511-837a-e2e5b9e3022d
     m_ActionName: 'Player/SwitchCharacter[/Keyboard/t]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ad4c0848-b48d-45f0-9c9d-7039207b7a1f
+    m_ActionName: 'Player/Grab[/Keyboard/f]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6d94a3d1-9e20-418e-af61-9dfa4a23f474
+    m_ActionName: Disabled/New action
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1291,6 +1299,9 @@ MonoBehaviour:
   moveSpeed: 0.9
   rayAmount: 2
   rayOffset: 0.2
+  grabParticlePrefab: {fileID: 119183615461286708, guid: 4761280e1b3662c41bdb0290cc1337e4, type: 3}
+  parentParticleToLedge: 0
+  particleDestroyTime: 2
   lateralRayLength: 0.8
   ledgeContinuityLateralOffset: 0.25
   climbUpHeight: 2.3

@@ -22,6 +22,11 @@ public class LedgeGrab : MonoBehaviour
     public int rayAmount = 5;
     public float rayOffset = 0.15f;
 
+    [Header("Visual & Audio")]
+    [SerializeField] private GameObject grabParticlePrefab; // Arraste o Prefab da partícula aqui
+    [SerializeField] private bool parentParticleToLedge = false; // Se a partícula deve seguir a borda (útil para plataformas móveis)
+    [SerializeField] private float particleDestroyTime = 2f;
+
     [Header("Lateral Movement")]
     public float lateralRayLength = 0.5f;
     [Tooltip("Distância lateral para checar se a borda continua")]
@@ -148,11 +153,32 @@ public class LedgeGrab : MonoBehaviour
 
         transform.position = grabPos;
 
+        // === IMPLEMENTAÇÃO DA PARTÍCULA ===
+        SpawnGrabParticle();
+
         animator?.SetTrigger("Grab");
         animator?.SetBool("IsGrabbing", true);
         animator?.SetBool("IsGrabIdle", true);
 
         StartCoroutine(GrabInputDelay());
+    }
+
+    private void SpawnGrabParticle()
+    {
+        if (grabParticlePrefab != null)
+        {
+            // Instancia a partícula exatamente no ponto onde o raio atingiu a borda
+            GameObject particle = Instantiate(grabParticlePrefab, lastLedgeHit.point, Quaternion.LookRotation(lastLedgeHit.normal));
+
+            // Se a borda se move (plataforma móvel), faz a partícula ser filha dela
+            if (parentParticleToLedge)
+            {
+                particle.transform.SetParent(lastLedgeHit.collider.transform);
+            }
+
+            // Destrói após o tempo definido para não encher a memória
+            Destroy(particle, particleDestroyTime);
+        }
     }
 
     private void HandleHorizontalMovement()

@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\UI e Menu\MenuManager.cs" />
     <Compile Include="Assets\Scripts\Scripts da fase 1 entrega\ButtonTrigger.cs" />
     <Compile Include="Assets\Scripts\Scripts da fase 1 entrega\BridgeController.cs" />
+    <Compile Include="Assets\Scripts\UI e Menu\VictoryScreenHandler.cs" />
     <Compile Include="Assets\Scripts\Audio\PlaySoundExit.cs" />
     <Compile Include="Assets\Scripts\Players\PlayerInteraction.cs" />
     <Compile Include="Assets\Scripts\Audio\PlaySoundEnter.cs" />
@@ -85,13 +86,13 @@
     <Compile Include="Assets\Scripts\Players\PlayerCarrySystem.cs" />
     <Compile Include="Assets\Scripts\Audio\VolumeSettingsRefresher.cs" />
     <Compile Include="Assets\Scripts\UI e Menu\CountdownTimer.cs" />
-    <Compile Include="Assets\Scripts\Players\VictoryScreenHandler.cs" />
     <Compile Include="Assets\InputSystem_Actions.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\Players\PlayerSwitchManager.cs" />
     <Compile Include="Assets\Scripts\Audio\SoundValues.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Fusion\GameSessionHandler.cs" />
+    <Compile Include="Assets\Scripts\UI e Menu\DefeatScreenHandler.cs" />
     <Compile Include="Assets\Scripts\UI e Menu\TitleScreen.cs" />
     <Compile Include="Assets\Scripts\UI e Menu\TextureCounterHUD.cs" />
     <Compile Include="Assets\GlobalAudioListener.cs" />

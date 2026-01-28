@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Derrota e vitoria")]
     [SerializeField] private VictoryScreenHandler victoryHandler;
+    [SerializeField] private DefeatScreenHandler defeatHandler;
 
     //[Header("Defeat System")]
     //[SerializeField] private GameObject defeatPanel; 
@@ -56,16 +57,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("Derrota confirmada!");
         IsGameActive = false;
 
-        //// Ativa o painel de derrota (UI)
-        //if (defeatPanel != null)
-        //{
-        //    defeatPanel.SetActive(true);
-        //}
+        defeatHandler.StartDefeatSequence();
+
+
+        //Time.timeScale = 0f; //acho que tem jeito melhor pra fazer isso
 
         
-        //Time.timeScale = 0f; acho que tem jeito melhor pra fazer isso
-
-        // 
         StartCoroutine(FadeOutMusicRoutine());
     }
 
@@ -80,13 +77,13 @@ public class GameManager : MonoBehaviour
         Debug.Log("Vitória confirmada!");
         IsGameActive = false;
 
-        if (victoryHandler != null)
-        {
-            victoryHandler.StartVictorySequence();
-        }
         
+        
+        victoryHandler.StartVictorySequence();
 
-        
+        //Time.timeScale = 0f; //acho que tem jeito melhor pra fazer isso
+
+
         StartCoroutine(FadeOutMusicRoutine());
     }
 
