@@ -78,7 +78,6 @@
     <Compile Include="Assets\Scripts\Audio\SoundsSO.cs" />
     <Compile Include="Assets\Scripts\Audio\VolumeSettings.cs" />
     <Compile Include="Assets\Scripts\Scripts da fase 1 entrega\BridgeButton.cs" />
-    <Compile Include="Assets\Scripts\UI e Menu\VictoryScreenController.cs" />
     <Compile Include="Assets\Scripts\Audio\SoundsSOEditor.cs" />
     <Compile Include="Assets\Scripts\UI e Menu\LoadingScreenManager.cs" />
     <Compile Include="Assets\Scripts\Players\PlayerCameraFollow.cs" />
@@ -86,8 +85,7 @@
     <Compile Include="Assets\Scripts\Players\PlayerCarrySystem.cs" />
     <Compile Include="Assets\Scripts\Audio\VolumeSettingsRefresher.cs" />
     <Compile Include="Assets\Scripts\UI e Menu\CountdownTimer.cs" />
-    <Compile Include="Assets\Scripts\UI e Menu\UIRefresher.cs" />
-    <Compile Include="Assets\Scripts\UI e Menu\DefeatScreenController.cs" />
+    <Compile Include="Assets\Scripts\Players\VictoryScreenHandler.cs" />
     <Compile Include="Assets\InputSystem_Actions.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\Players\PlayerSwitchManager.cs" />

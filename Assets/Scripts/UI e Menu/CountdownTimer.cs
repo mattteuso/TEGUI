@@ -1,69 +1,54 @@
-﻿using Fusion;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
-public class CountdownTimer : NetworkBehaviour
+public class CountdownTimer : MonoBehaviour
 {
     [Header("Config")]
     public float startTime = 10f;
 
-    [Networked]
-    public float CurrentTime { get; set; }
+    public float CurrentTime { get; private set; }
 
     [Header("UI")]
     public TextMeshProUGUI timerText;
 
-    private bool uiReady = false;
+    private bool timerIsRunning = false;
 
-    public override void Spawned()
+    private void Start()
     {
-        // Inicializa somente no State Authority
-        if (Object.HasStateAuthority)
-            CurrentTime = startTime;
-
-        uiReady = true;
+        CurrentTime = startTime;
+        timerIsRunning = true;
         UpdateUI();
-    }
-
-    public override void FixedUpdateNetwork()
-    {
-        if (!Object.HasStateAuthority) return;
-        if (CurrentTime <= 0) return;
-
-        CurrentTime -= Runner.DeltaTime;
-
-        if (CurrentTime <= 0)
-        {
-            CurrentTime = 0;
-
-            // 🔑 CHAMADA PARA O HANDLER DE SESSÃO
-            if (GameSessionHandler.ActiveHandler != null)
-            {
-                // A State Authority chama o RPC no Handler para sincronizar o Game Over
-                GameSessionHandler.ActiveHandler.RPC_GameOver();
-            }
-            else
-            {
-                Debug.LogError("GameSessionHandler não está ativo na sessão.");
-            }
-        }
     }
 
     private void Update()
     {
-        if (!uiReady) return;   // impede acesso antes do Spawned
+        if (!timerIsRunning) return;
+
+        if (CurrentTime > 0)
+        {
+            CurrentTime -= Time.deltaTime;
+
+            if (CurrentTime <= 0)
+            {
+                CurrentTime = 0;
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.EndGameLocal();
+                }
+            }
+        }
+
         UpdateUI();
     }
+
 
     void UpdateUI()
     {
         if (timerText == null) return;
 
-        float t = CurrentTime;
+        int m = Mathf.FloorToInt(CurrentTime / 60f);
+        int s = Mathf.FloorToInt(CurrentTime % 60f);
 
-        int m = Mathf.FloorToInt(t / 60f);
-        int s = Mathf.FloorToInt(t % 60f);
-
-        timerText.text = $"{m:0}:{s:00}";
+        timerText.text = string.Format("{0:0}:{1:00}", m, s);
     }
 }

@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class TextureCounterController : MonoBehaviour
 {
-    // O contador agora é uma propriedade simples
+    [Header("Configurações de Vitória")]
+    [SerializeField] private int targetTextureCount = 10; // Quantidade necessária para ganhar
+
     public int TextureChangeCount { get; private set; }
 
     private static TextureCounterController instance;
@@ -10,7 +12,6 @@ public class TextureCounterController : MonoBehaviour
 
     private void Awake()
     {
-        // Singleton simples para Single Player
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
@@ -21,22 +22,43 @@ public class TextureCounterController : MonoBehaviour
         TextureChangeCount = 0;
     }
 
-    // Wrapper estático igual ao anterior para não quebrar seus outros scripts
     public static void Incrementar()
     {
         if (instance == null)
         {
-            Debug.LogWarning("[TextureCounterController] Nenhuma instância encontrada na cena.");
+            Debug.LogWarning("[TextureCounterController] Nenhuma instância encontrada.");
             return;
         }
 
         instance.AddCount();
     }
 
-    // Método que substitui o antigo RPC
     public void AddCount()
     {
+        // Se o jogo já acabou, não conta mais
+        if (GameManager.Instance != null && !GameManager.Instance.IsGameActive) return;
+
         TextureChangeCount++;
-        Debug.Log($"[TextureCounterController] Contador atualizado -> {TextureChangeCount}");
+        Debug.Log($"[TextureCounterController] Contador: {TextureChangeCount} / {targetTextureCount}");
+
+        // VERIFICAÇÃO DA CONDIÇÃO DE VITÓRIA
+        if (TextureChangeCount >= targetTextureCount)
+        {
+            WinGame();
+        }
+    }
+
+    private void WinGame()
+    {
+        Debug.Log("Meta atingida! Enviando vitória para o GameManager.");
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.WinGameLocal();
+        }
+        else
+        {
+            Debug.LogError("GameManager não encontrado para processar a vitória!");
+        }
     }
 }

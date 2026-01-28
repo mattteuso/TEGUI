@@ -49,8 +49,7 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 131073
   NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 8055377605084332709}
+  NetworkedBehaviours: []
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &8055377605084332709
 MonoBehaviour:
@@ -65,5 +64,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startTime: 100
-  _CurrentTime: 10
   timerText: {fileID: 0}

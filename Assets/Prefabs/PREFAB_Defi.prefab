@@ -664,7 +664,15 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 0b9e1d0e-0177-4511-837a-e2e5b9e3022d
-    m_ActionName: 'Player/SwitchCharacter[/Keyboard/t]'
+    m_ActionName: 'Player2/Move[/XInputControllerWindows/leftStick,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ad4c0848-b48d-45f0-9c9d-7039207b7a1f
+    m_ActionName: 'Player/Grab[/Keyboard/f]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6d94a3d1-9e20-418e-af61-9dfa4a23f474
+    m_ActionName: Disabled/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

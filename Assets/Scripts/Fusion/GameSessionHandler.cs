@@ -28,32 +28,32 @@ public class GameSessionHandler : NetworkBehaviour
         }
     }
 
-    public void RPC_InitiateRestart()
-    {
-        // Este código só roda no Host (StateAuthority)
+    //public void RPC_InitiateRestart()
+    //{
+    //    // Este código só roda no Host (StateAuthority)
 
-        // Despacha a chamada para o GameManager (que está na cena e é DontDestroyOnLoad)
-        if (GameManager.Instance != null)
-        {
-            Debug.Log("[GameSessionHandler] Host recebeu RPC. Iniciando rotina no GameManager.");
-            // O Host chama diretamente a rotina, passando seu próprio Runner
-            GameManager.Instance.StartCoroutine(
-                GameManager.Instance.ShutdownAndRestartRoutine(Runner)
-            );
-        }
-    }
+    //    // Despacha a chamada para o GameManager (que está na cena e é DontDestroyOnLoad)
+    //    if (GameManager.Instance != null)
+    //    {
+    //        Debug.Log("[GameSessionHandler] Host recebeu RPC. Iniciando rotina no GameManager.");
+    //        // O Host chama diretamente a rotina, passando seu próprio Runner
+    //        GameManager.Instance.StartCoroutine(
+    //            GameManager.Instance.ShutdownAndRestartRoutine(Runner)
+    //        );
+    //    }
+    //}
 
-    // Este RPC é chamado SOMENTE pela StateAuthority (o Host) quando o timer zera.
-    // O Fusion garante que ele seja executado em TODOS os clientes (RpcTargets.All).
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    public void RPC_GameOver()
-    {
-        Debug.Log("RPC_GameOver recebido em todos os clientes. Ativando Game Over local.");
+    //// Este RPC é chamado SOMENTE pela StateAuthority (o Host) quando o timer zera.
+    //// O Fusion garante que ele seja executado em TODOS os clientes (RpcTargets.All).
+    //[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    //public void RPC_GameOver()
+    //{
+    //    Debug.Log("RPC_GameOver recebido em todos os clientes. Ativando Game Over local.");
 
-        if (GameManager.Instance != null)
-        {
-            // O GameManager, que é local, executa a ação e recebe a referência de UI
-            GameManager.Instance.HandleGameOver(localDefeatScreenUI);
-        }
-    }
+    //    if (GameManager.Instance != null)
+    //    {
+    //        // O GameManager, que é local, executa a ação e recebe a referência de UI
+    //        GameManager.Instance.HandleGameOver(localDefeatScreenUI);
+    //    }
+    //}
 }
